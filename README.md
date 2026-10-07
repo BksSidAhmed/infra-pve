@@ -20,6 +20,8 @@ Paperless et une page d'accueil. Dernier relevé : **7 octobre 2026**.
 
 ## Schéma
 
+Schémas détaillés (réseau, chaîne multimédia, stockage, sauvegardes) : [docs/schemas.md](docs/schemas.md).
+
 ```
 Internet ─── Box 192.168.1.1 (passerelle + DHCP)
                  │
@@ -77,7 +79,7 @@ Prochaines IP libres conseillées pour un nouveau CT : `192.168.1.105` et suivan
 ## Contenu du dépôt
 
 - [CLAUDE.md](CLAUDE.md) — règles, accès, où trouver quoi
-- [docs/](docs/) — matériel, réseau, accès extérieur, stockage, sauvegardes, sécurité, recommandations
+- [docs/](docs/) — schémas, matériel, réseau, accès extérieur, stockage, sauvegardes, sécurité, recommandations
 - [conteneurs/](conteneurs/) — une fiche par conteneur
 - [config/](config/) — copies des fichiers de config (sans secrets)
 - [CHANGELOG.md](CHANGELOG.md) — historique des modifications

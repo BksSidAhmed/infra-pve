@@ -3,6 +3,7 @@
 Format : date — quoi — pourquoi — comment revenir en arrière. Le plus récent en haut.
 
 ## 2026-10-07
+- Ajout de docs/schemas.md : 4 schémas Mermaid (réseau, chaîne multimédia, stockage, sauvegardes). Documentation seulement, rien de changé sur le serveur.
 - Création de ce dépôt à partir de la doc HTML du 06/10 et d'un relevé en lecture seule du serveur.
 - Constaté : 17 erreurs CKSUM et 1 fichier corrompu sur le pool `Disque1` (voir docs/recommandations.md).
 - Homepage (CT 104) : ajout des chiffres en direct pour Plex, Seerr, Bazarr, Radarr, Sonarr, Prowlarr et Proxmox

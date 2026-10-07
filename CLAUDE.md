@@ -45,6 +45,7 @@ Il n'y a **pas** de SSH direct dans les conteneurs : on passe toujours par l'hô
 | Sujet | Dans ce dépôt | Sur le serveur |
 |---|---|---|
 | Vue d'ensemble, IP, ports | [README.md](README.md) | — |
+| Schémas (réseau, médias, stockage, sauvegardes) | [docs/schemas.md](docs/schemas.md), à mettre à jour si l'architecture change | — |
 | Matériel | [docs/materiel.md](docs/materiel.md) | `lsblk`, `smartctl -a /dev/sdX` |
 | Réseau, DNS, Tailscale | [docs/reseau.md](docs/reseau.md) | `/etc/network/interfaces`, `ip -br a`, `tailscale status` |
 | Accès depuis Internet (Cloudflare) | [docs/acces-exterieur.md](docs/acces-exterieur.md) | `/opt/arr/docker-compose.yml` (CT 101) |
