@@ -86,7 +86,7 @@ flowchart TB
         thin --> d102["CT 102 · 4 Go"]
         thin --> d103["CT 103 · 24 Go"]
         thin --> d104["CT 104 · 4 Go"]
-        thin --> d105["CT 105 · 4 Go"]
+        thin --> d105["CT 105 · 8 Go"]
     end
     subgraph usb1["Disque USB 5 To n°1 · ZFS « Disque1 »"]
         data["Disque1/data ~584 Go<br/>/mnt/data"]

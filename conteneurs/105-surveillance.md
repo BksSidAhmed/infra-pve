@@ -4,7 +4,7 @@
 |---|---|
 | IP | 192.168.1.105 |
 | Système | Debian 13 |
-| Ressources | 1 vCPU · 512 Mo RAM · 512 Mo swap · 4 Go sur local-lvm |
+| Ressources | 1 vCPU · 512 Mo RAM · 512 Mo swap · 8 Go sur local-lvm |
 | Options | non privilégié, `nesting=1,keyctl=1`, démarrage auto, DNS du CT : 1.1.1.1, tag `monitoring` |
 | Docker Compose | `/opt/uptime-kuma/compose.yaml` (copie : [config/ct105-surveillance/](../config/ct105-surveillance/)) |
 | Données | `/opt/uptime-kuma/data/` : base SQLite `kuma.db` (sondes, historique, notifications) |

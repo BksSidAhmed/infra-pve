@@ -3,6 +3,7 @@
 Format : date — quoi — pourquoi — comment revenir en arrière. Le plus récent en haut.
 
 ## 2026-10-07
+- CT 105 : disque agrandi de 4 à 8 Go (`pct resize 105 rootfs 8G`), l'image Uptime Kuma (2,5 Go) le remplissait à 98 %. Pas de retour arrière possible (un disque LXC ne se réduit pas), sans conséquence.
 - CT 105 « surveillance » créé (192.168.1.105, Debian 13, 1 vCPU, 512 Mo, 4 Go) : Uptime Kuma 2 sous Docker,
   13 sondes (Plex, Seerr local + public, *arr, qBittorrent, AdGuard web + DNS, Paperless, Homepage, Proxmox),
   alertes sur le téléphone via ntfy.sh. Pourquoi : être prévenu quand un service tombe.
