@@ -19,6 +19,10 @@
   **Maison** (Proxmox, AdGuard, Paperless, Uptime Kuma). Voyant vert/rouge par service.
 - Chiffres en direct pour Plex, Seerr, Bazarr, Radarr, Sonarr, Prowlarr et Proxmox
   (jeton `root@pam!homepage`, PVEAuditor). qBittorrent, AdGuard, Paperless, Uptime Kuma : voyant seulement.
+- Groupe **Disques** (depuis le 07/10) : Disque1, Disque2, SSD (local-lvm) avec % occupé, utilisé et libre,
+  et « Disque du CT Plex » (utilisé / taille). Widgets `customapi` sur l'API Proxmox avec le même jeton :
+  `/nodes/pve/storage?storage=<nom>` (champ `used_fraction`) et `/nodes/pve/lxc/100/status/current` (`disk`, `maxdisk`).
+  Rafraîchis toutes les 5 min. Sauvegardes d'avant : `services.yaml.bak-disques`, `settings.yaml.bak-disques`.
 
 ## Ajouter un service
 

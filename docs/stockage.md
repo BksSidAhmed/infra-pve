@@ -29,18 +29,32 @@ Compression ZFS activée, ARC limité à environ 0,72 Gio.
 | backups | dir | `/Disque1/backups` | sauvegardes vzdump |
 | Disque2 | zfspool | USB n°2 | disques VM/CT (inutilisé) |
 
+## Occupation au 07/10/2026 (18 h)
+
+| Stockage | Occupé | Utilisé / total |
+|---|---|---|
+| Disque1 (médias, sauvegardes) | 14 % | 623 Go / 4,5 To (dont médias 602 Go) |
+| Disque2 (Paperless) | 0,2 % | 9,6 Go / 4,5 To |
+| local-lvm (SSD, disques des CT) | 12 % | 42 Go / 338 Go |
+| local (SSD, système de l'hôte) | 6 % | 5,7 Go / 94 Go |
+| Disque du CT 100 plex | 48-50 % | 5,7 Go / 12 Go |
+
+Ces chiffres sont affichés en direct sur Homepage (groupe « Disques », voir [104-accueil.md](../conteneurs/104-accueil.md)).
+Le CT Plex contient surtout ROCm (`/opt/rocm-7.2.0`, 2,4 Go, pour l'iGPU AMD), le système (`/usr`, 1,5 Go)
+et les données Plex (1,3 Go, dont 0,7 Go de cache de transcodage).
+
 ## Disques des conteneurs (local-lvm)
 
 | CT | Taille | Utilisé (df, 07/10) |
 |---|---|---|
-| 100 plex | 12 Go | 5,0 Go (45 %) |
+| 100 plex | 12 Go | 5,6 Go (50 %) |
 | 101 arr | 20 Go | 4,5 Go (24 %) |
 | 102 adguard | 4 Go | 0,8 Go (21 %) |
 | 103 paperless | 24 Go | 5,1 Go (23 %) |
 | 104 accueil | 4 Go | 1,6 Go (44 %) |
 | 105 surveillance | 8 Go | 3,4 Go (46 %) |
 
-Note : `lvs` montre le thin du CT 100 alloué à 99 % alors que `df` n'en voit que 45 % : des blocs
+Note : `lvs` montre le thin du CT 100 alloué à 99 % alors que `df` n'en voit que 50 % : des blocs
 libérés n'ont pas été rendus au pool (un `pct fstrim 100` les récupérerait). Sans gravité tant que le pool a de la place.
 
 ## Arborescence des médias (`/mnt/data`, vu comme `/data` dans les CT 100 et 101)

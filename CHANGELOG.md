@@ -3,6 +3,12 @@
 Format : date — quoi — pourquoi — comment revenir en arrière. Le plus récent en haut.
 
 ## 2026-10-07
+- Homepage (CT 104) : nouveau groupe « Disques » avec l'occupation en direct de Disque1, Disque2, SSD (local-lvm)
+  et du disque du CT Plex, via l'API Proxmox (jeton `root@pam!homepage` existant, widgets `customapi`).
+  Pourquoi : suivre l'espace disque d'un coup d'œil (relevé du jour : Disque1 14 %, Disque2 0,2 %, local-lvm 12 %,
+  CT Plex 50 % ; le « 92 % » venait de l'allocation LVM thin, pas du remplissage réel).
+  Retour arrière : dans `/opt/homepage/config/`, remettre `services.yaml.bak-disques` et `settings.yaml.bak-disques`.
+  Copie de la nouvelle config dans `config/ct104-accueil/` : à faire (voir le fil « Espace disque et Homepage »).
 - Médiathèque : film « Legend (1985) » (6,8 Go) supprimé à la demande de Boukais avec `supprimer-film "legend"`
   (retiré de Radarr avec son dossier, torrent et fichier supprimés dans qBittorrent).
   Retour arrière : le redemander dans Seerr / Radarr.
@@ -30,7 +36,8 @@ Format : date — quoi — pourquoi — comment revenir en arrière. Le plus ré
   Retour arrière : `pct stop 105 && pct destroy 105`. Sauvegarde de la base avant ajout des sondes : `data/kuma.db.bak-sondes`.
 - Homepage (CT 104) : tuile Uptime Kuma dans le groupe « Maison » (sauvegarde `services.yaml.bak-uptime-kuma`).
 - Hôte : ajout de la commande `/usr/local/bin/supprimer-film` (Radarr + qBittorrent + fichiers). Retour arrière : supprimer le fichier.
-- Disque1 : film corrompu (Harry Potter 5, 2160p) supprimé et re-téléchargé via Radarr, `zpool clear` puis `zpool scrub` lancé.
+- Disque1 : film corrompu (Harry Potter 5, 2160p) supprimé et re-téléchargé via Radarr, `zpool clear` puis `zpool scrub`.
+  Scrub terminé à 15:24 : 0 octet réparé, 0 erreur, « No known data errors ».
 - Ajout de docs/schemas.md : 4 schémas Mermaid (réseau, chaîne multimédia, stockage, sauvegardes). Documentation seulement, rien de changé sur le serveur.
 - Création de ce dépôt à partir de la doc HTML du 06/10 et d'un relevé en lecture seule du serveur.
 - Constaté : 17 erreurs CKSUM et 1 fichier corrompu sur le pool `Disque1` (voir docs/recommandations.md).
