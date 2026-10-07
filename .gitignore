@@ -1,0 +1,9 @@
+# Jamais de secrets dans ce dépôt
+.env
+*.env
+!*.env.exemple
+*.key
+*.pem
+id_*
+*secret*
+*token*

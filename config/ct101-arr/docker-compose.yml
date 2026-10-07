@@ -1,0 +1,108 @@
+name: arr
+
+x-arr: &arr
+  restart: unless-stopped
+  environment: &env
+    PUID: 1000
+    PGID: 10000
+    UMASK: "002"
+    TZ: Europe/Paris
+
+services:
+  radarr:
+    <<: *arr
+    image: lscr.io/linuxserver/radarr:latest
+    container_name: radarr
+    ports: ["7878:7878"]
+    volumes:
+      - /opt/arr/config/radarr:/config
+      - /data:/data
+
+  sonarr:
+    <<: *arr
+    image: lscr.io/linuxserver/sonarr:latest
+    container_name: sonarr
+    ports: ["8989:8989"]
+    volumes:
+      - /opt/arr/config/sonarr:/config
+      - /data:/data
+
+  prowlarr:
+    <<: *arr
+    image: lscr.io/linuxserver/prowlarr:latest
+    container_name: prowlarr
+    network_mode: "service:gluetun"
+    depends_on:
+      gluetun:
+        condition: service_healthy
+    volumes:
+      - /opt/arr/config/prowlarr:/config
+
+  bazarr:
+    <<: *arr
+    image: lscr.io/linuxserver/bazarr:latest
+    container_name: bazarr
+    ports: ["6767:6767"]
+    volumes:
+      - /opt/arr/config/bazarr:/config
+      - /data:/data
+
+  seerr:
+    image: ghcr.io/seerr-team/seerr:latest
+    container_name: seerr
+    init: true
+    user: "1000:10000"
+    restart: unless-stopped
+    environment:
+      TZ: Europe/Paris
+    ports: ["5055:5055"]
+    volumes:
+      - /opt/arr/config/seerr:/app/config
+
+  gluetun:
+    image: qmcgaw/gluetun:latest
+    container_name: gluetun
+    restart: unless-stopped
+    cap_add: [NET_ADMIN]
+    devices: ["/dev/net/tun:/dev/net/tun"]
+    ports:
+      - "8080:8080"
+      - "9696:9696"
+    environment:
+      TZ: Europe/Paris
+      VPN_SERVICE_PROVIDER: protonvpn
+      VPN_TYPE: wireguard
+      WIREGUARD_PRIVATE_KEY: ${WIREGUARD_PRIVATE_KEY}
+      SERVER_COUNTRIES: France
+      VPN_PORT_FORWARDING: "on"
+      VPN_PORT_FORWARDING_UP_COMMAND: "/bin/sh /gluetun/qbt-port.sh {{PORTS}}"
+      PORT_FORWARD_ONLY: "on"
+      FIREWALL_OUTBOUND_SUBNETS: 192.168.1.0/24
+      FIREWALL_INPUT_PORTS: "8080,9696"
+    volumes:
+      - /opt/arr/config/gluetun:/gluetun
+
+  qbittorrent:
+    image: lscr.io/linuxserver/qbittorrent:latest
+    container_name: qbittorrent
+    restart: unless-stopped
+    network_mode: "service:gluetun"
+    depends_on:
+      gluetun:
+        condition: service_healthy
+    environment:
+      PUID: 1000
+      PGID: 10000
+      UMASK: "002"
+      TZ: Europe/Paris
+      WEBUI_PORT: 8080
+    volumes:
+      - /opt/arr/config/qbittorrent:/config
+      - /data:/data
+
+  cloudflared:
+    image: cloudflare/cloudflared:latest
+    container_name: cloudflared
+    restart: unless-stopped
+    command: tunnel --no-autoupdate run
+    env_file: /opt/arr/cloudflared.env

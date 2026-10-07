@@ -1,0 +1,2 @@
+# Export lisible de tous les documents vers le disque USB (/Disque1/paperless-export sur l hote), avant la sauvegarde Proxmox de 01:00
+30 0 * * * root cd /opt/paperless && /usr/bin/docker compose exec -T webserver document_exporter ../export -c -d > /var/log/paperless-export.log 2>&1

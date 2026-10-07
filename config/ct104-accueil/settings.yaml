@@ -1,0 +1,16 @@
+title: Maison
+language: fr
+theme: dark
+color: slate
+headerStyle: clean
+statusStyle: dot
+layout:
+  Médias:
+    style: row
+    columns: 3
+  Téléchargements:
+    style: row
+    columns: 3
+  Maison:
+    style: row
+    columns: 3

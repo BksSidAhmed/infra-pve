@@ -1,0 +1,85 @@
+- Médias:
+    - Plex:
+        icon: plex.png
+        href: http://192.168.1.100:32400/web
+        siteMonitor: http://192.168.1.100:32400/identity
+        description: Films et séries
+        widget:
+          type: plex
+          url: http://192.168.1.100:32400
+          key: "{{HOMEPAGE_VAR_PLEX_KEY}}"
+    - Seerr:
+        icon: jellyseerr.png
+        href: https://cine.bks-home.com
+        siteMonitor: http://192.168.1.101:5055
+        description: Demander un film ou une série
+        widget:
+          type: jellyseerr
+          url: http://192.168.1.101:5055
+          key: "{{HOMEPAGE_VAR_SEERR_KEY}}"
+    - Bazarr:
+        icon: bazarr.png
+        href: http://192.168.1.101:6767
+        siteMonitor: http://192.168.1.101:6767
+        description: Sous-titres
+        widget:
+          type: bazarr
+          url: http://192.168.1.101:6767
+          key: "{{HOMEPAGE_VAR_BAZARR_KEY}}"
+
+- Téléchargements:
+    - Radarr:
+        icon: radarr.png
+        href: http://192.168.1.101:7878
+        siteMonitor: http://192.168.1.101:7878
+        description: Films
+        widget:
+          type: radarr
+          url: http://192.168.1.101:7878
+          key: "{{HOMEPAGE_VAR_RADARR_KEY}}"
+    - Sonarr:
+        icon: sonarr.png
+        href: http://192.168.1.101:8989
+        siteMonitor: http://192.168.1.101:8989
+        description: Séries
+        widget:
+          type: sonarr
+          url: http://192.168.1.101:8989
+          key: "{{HOMEPAGE_VAR_SONARR_KEY}}"
+    - Prowlarr:
+        icon: prowlarr.png
+        href: http://192.168.1.101:9696
+        siteMonitor: http://192.168.1.101:9696
+        description: Indexeurs
+        widget:
+          type: prowlarr
+          url: http://192.168.1.101:9696
+          key: "{{HOMEPAGE_VAR_PROWLARR_KEY}}"
+    - qBittorrent:
+        icon: qbittorrent.png
+        href: http://192.168.1.101:8080
+        siteMonitor: http://192.168.1.101:8080
+        description: Téléchargements (via VPN)
+
+- Maison:
+    - Proxmox:
+        icon: proxmox.png
+        href: https://192.168.1.50:8006
+        siteMonitor: https://192.168.1.50:8006
+        description: Le serveur
+        widget:
+          type: proxmox
+          url: https://192.168.1.50:8006
+          username: root@pam!homepage
+          password: "{{HOMEPAGE_VAR_PVE_SECRET}}"
+          node: pve
+    - AdGuard Home:
+        icon: adguard-home.png
+        href: http://192.168.1.102
+        siteMonitor: http://192.168.1.102
+        description: Bloqueur de pubs
+    - Paperless:
+        icon: paperless-ngx.png
+        href: http://192.168.1.103:8000
+        siteMonitor: http://192.168.1.103:8000
+        description: Documents
