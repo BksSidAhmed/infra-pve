@@ -44,6 +44,11 @@ Achats et abonnements · Divers (à vérifier).
 - Étiquette « Doublon possible » sur 9 paires de documents en double, à trier par Boukais.
 - L'apprentissage automatique ne s'entraîne que sur les documents **sans** « À traiter » : il deviendra utile
   au fur et à mesure que Boukais retire cette étiquette des documents vérifiés.
+- L'appli mobile « Paperless Mobile » n'arrive pas à charger les vues (« Impossible de charger les vues
+  enregistrées », appli trop ancienne pour cette version de Paperless) : passer par « Filtrer les documents »
+  → « Type de document », ou par le site dans le navigateur du téléphone.
+- Commandes `manage.py` : toujours les lancer avec `docker exec -u paperless …`. Lancées en root, elles créent
+  des fichiers d'index appartenant à root et la recherche plante (« Permission denied »).
 - État d'avant le classement (types, vues, type de chaque document) : `/mnt/docs/data/avant-classement-20261007.json`.
 
 ## Partages Samba (compte `scanner`)

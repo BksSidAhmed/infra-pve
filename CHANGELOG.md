@@ -3,6 +3,9 @@
 Format : date — quoi — pourquoi — comment revenir en arrière. Le plus récent en haut.
 
 ## 2026-10-07
+- Paperless (CT 103) : index de recherche reconstruit avec `docker exec -u paperless … document_index reindex`.
+  Pourquoi : la reconstruction lancée en root juste après le classement avait cassé la recherche (droits).
+  Retour arrière : sans objet.
 - Paperless (CT 103) : les 218 documents classés dans 14 dossiers (types de documents + vues du menu de gauche,
   voir `conteneurs/103-paperless.md`), d'après leur contenu. Les 15 anciens types et 11 anciennes vues sont remplacés,
   étiquette « Doublon possible » ajoutée sur 18 documents. Aucun document supprimé, fichiers non déplacés.
