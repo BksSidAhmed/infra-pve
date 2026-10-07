@@ -83,3 +83,8 @@
         href: http://192.168.1.103:8000
         siteMonitor: http://192.168.1.103:8000
         description: Documents
+    - Uptime Kuma:
+        icon: uptime-kuma.png
+        href: http://192.168.1.105
+        siteMonitor: http://192.168.1.105
+        description: Surveillance et alertes

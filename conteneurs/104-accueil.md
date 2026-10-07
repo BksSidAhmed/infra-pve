@@ -16,9 +16,9 @@
 - Image `ghcr.io/gethomepage/homepage:latest`, port 80 → 3000. Réseau local uniquement (pas dans le tunnel).
 - `HOMEPAGE_ALLOWED_HOSTS` : `192.168.1.104,accueil.home,localhost:3000`.
 - 3 groupes : **Médias** (Plex, Seerr, Bazarr), **Téléchargements** (Radarr, Sonarr, Prowlarr, qBittorrent),
-  **Maison** (Proxmox, AdGuard, Paperless). Voyant vert/rouge par service.
+  **Maison** (Proxmox, AdGuard, Paperless, Uptime Kuma). Voyant vert/rouge par service.
 - Chiffres en direct pour Plex, Seerr, Bazarr, Radarr, Sonarr, Prowlarr et Proxmox
-  (jeton `root@pam!homepage`, PVEAuditor). qBittorrent, AdGuard, Paperless : voyant seulement.
+  (jeton `root@pam!homepage`, PVEAuditor). qBittorrent, AdGuard, Paperless, Uptime Kuma : voyant seulement.
 
 ## Ajouter un service
 

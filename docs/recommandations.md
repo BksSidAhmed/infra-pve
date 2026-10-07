@@ -16,13 +16,13 @@ Cocher / retirer une ligne quand c'est fait, et l'inscrire dans le [CHANGELOG](.
 
 ## 🟠 Moyenne
 
-- [ ] **Recevoir réellement les alertes** : ajouter une cible SMTP authentifiée ou Gotify/ntfy dans Datacenter → Notifications.
+- [ ] **Recevoir réellement les alertes** : ajouter une cible SMTP authentifiée ou Gotify/ntfy dans Datacenter → Notifications. Le sujet ntfy d'Uptime Kuma (CT 105) peut être réutilisé : les échecs de sauvegarde et erreurs ZFS arriveraient alors sur le téléphone.
 - [ ] **Sortir les disques de l'USB** : baies SATA internes du WTR PRO, disques 3,5" CMR (WD Red Plus, IronWolf).
 - [ ] **Durcir les accès** : TOTP sur `root@pam`, SSH par clé uniquement, fail2ban.
 
 ## 🟢 Basse
 
-- [ ] Appliquer les 17 mises à jour en attente ; `docker compose pull` de temps en temps dans les CT 101, 103, 104.
+- [ ] Appliquer les 17 mises à jour en attente ; `docker compose pull` de temps en temps dans les CT 101, 103, 104, 105.
 - [ ] Vérifier que la box distribue `192.168.1.102` (AdGuard) en DNS DHCP, avec un DNS de secours.
 - [ ] Tester une restauration (ex. CT 102 → ID 902) puis la supprimer.
 - [ ] `pct fstrim 100` pour rendre au pool les blocs libérés du CT 100.

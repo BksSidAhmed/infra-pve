@@ -20,6 +20,7 @@ Tous sur `vmbr0` avec une IP fixe, passerelle `192.168.1.1`.
 | 102 adguard | 192.168.1.102 | 1.1.1.1 | 53 (DNS), 80 (web) |
 | 103 paperless | 192.168.1.103 | 192.168.1.1 | 8000, 445 (Samba) |
 | 104 accueil | 192.168.1.104 | 1.1.1.1 | 80 |
+| 105 surveillance | 192.168.1.105 | 1.1.1.1 | 80 (Uptime Kuma) |
 
 ## Hôte : ports en écoute
 

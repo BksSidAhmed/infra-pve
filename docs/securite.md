@@ -23,5 +23,7 @@
 | Clé secrète Paperless | CT 103 `/opt/paperless/paperless.env` (`PAPERLESS_SECRET_KEY`) |
 | Compte Samba `scanner` | base Samba du CT 103 (`pdbedit -L`) |
 | Compte admin AdGuard | CT 102 `/opt/AdGuardHome/AdGuardHome.yaml` (section `users`, hash) |
+| Compte admin Uptime Kuma | CT 105 `/opt/uptime-kuma/data/kuma.db` (table `user`, hash) |
+| Sujet ntfy des alertes (sert de clé) | Uptime Kuma, notification « ntfy téléphone » (CT 105 `kuma.db`, table `notification`) |
 
 Tous ces fichiers sont en droits 600.

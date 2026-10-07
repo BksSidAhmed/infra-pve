@@ -66,6 +66,7 @@ Si une info du dépôt semble fausse, vérifie sur le serveur (lecture seule) et
 - **CT 102 adguard** (192.168.1.102) — AdGuard Home (DNS :53, web :80). Config : `/opt/AdGuardHome/AdGuardHome.yaml`.
 - **CT 103 paperless** (192.168.1.103) — Paperless-ngx (Docker, `/opt/paperless`) + Samba `\\192.168.1.103\scan`.
 - **CT 104 accueil** (192.168.1.104) — Homepage (Docker, `/opt/homepage`), alias `accueil.home`.
+- **CT 105 surveillance** (192.168.1.105) — Uptime Kuma (Docker, `/opt/uptime-kuma`), 13 sondes, alertes ntfy sur le téléphone.
 
 ## 5. Procédure après chaque modification de l'infra
 

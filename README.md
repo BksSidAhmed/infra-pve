@@ -14,9 +14,10 @@ Paperless et une page d'accueil. Dernier relevé : **7 octobre 2026**.
 | Système | Proxmox VE 9.2.21 (Debian 13 trixie), nœud seul |
 | IP | `192.168.1.50` (LAN) · `100.73.1.43` (Tailscale) |
 | Disques | SSD NVMe 500 Go (système + CT) · 2 × WD 5 To en USB (ZFS `Disque1`, `Disque2`) |
-| Conteneurs | 5 LXC non privilégiés (100 à 104), aucune VM |
+| Conteneurs | 6 LXC non privilégiés (100 à 105), aucune VM |
 | Sauvegarde | vzdump chaque nuit à 01:00 vers `Disque1` (7 jours + 4 semaines) |
 | Accès extérieur | Tailscale (admin) · Cloudflare Tunnel pour `cine.bks-home.com` (Seerr) |
+| Surveillance | Uptime Kuma (CT 105), alertes sur le téléphone via ntfy |
 
 ## Schéma
 
@@ -37,6 +38,7 @@ Internet ─── Box 192.168.1.1 (passerelle + DHCP)
    │  CT 102 adguard   .102  AdGuard Home DNS :53 / web :80      │
    │  CT 103 paperless .103  Paperless-ngx :8000 + Samba         │
    │  CT 104 accueil   .104  Homepage :80                        │
+   │  CT 105 surveil.  .105  Uptime Kuma :80 → alertes ntfy      │
    │                                                             │
    │  SSD NVMe  → local-lvm (disques des CT)                     │
    │  USB WD 5To → ZFS Disque1 : /mnt/data (médias), backups     │
@@ -59,6 +61,7 @@ Internet ─── Box 192.168.1.1 (passerelle + DHCP)
 | qBittorrent | http://192.168.1.101:8080 (via gluetun) | CT 101 |
 | AdGuard Home | http://192.168.1.102 | CT 102 |
 | Paperless-ngx | http://192.168.1.103:8000 · dépôt `\\192.168.1.103\scan` | CT 103 |
+| Uptime Kuma (surveillance) | http://192.168.1.105 | CT 105 |
 
 ## Plan d'adressage
 
@@ -73,8 +76,9 @@ Internet ─── Box 192.168.1.1 (passerelle + DHCP)
 | 192.168.1.102 | CT 102 adguard |
 | 192.168.1.103 | CT 103 paperless |
 | 192.168.1.104 | CT 104 accueil |
+| 192.168.1.105 | CT 105 surveillance |
 
-Prochaines IP libres conseillées pour un nouveau CT : `192.168.1.105` et suivantes (ID 105…).
+Prochaines IP libres conseillées pour un nouveau CT : `192.168.1.106` et suivantes (ID 106…).
 
 ## Contenu du dépôt
 

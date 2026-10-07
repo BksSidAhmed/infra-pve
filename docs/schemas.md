@@ -25,6 +25,7 @@ flowchart LR
             vmbr0 --- ct102["CT 102 adguard<br/>.102 · DNS :53, web :80"]
             vmbr0 --- ct103["CT 103 paperless<br/>.103 · :8000, Samba"]
             vmbr0 --- ct104["CT 104 accueil<br/>.104 · :80"]
+            vmbr0 --- ct105["CT 105 surveillance<br/>.105 · Uptime Kuma :80"]
         end
     end
 
@@ -38,6 +39,7 @@ flowchart LR
     tel <-.-> ts
     proton --- internet
     cf --- internet
+    ct105 -. "alertes ntfy.sh<br/>(sortant)" .-> internet
 ```
 
 - Trait plein : réseau local. Pointillés : tunnels chiffrés, tous **sortants** (aucun port ouvert sur la box).
@@ -84,6 +86,7 @@ flowchart TB
         thin --> d102["CT 102 · 4 Go"]
         thin --> d103["CT 103 · 24 Go"]
         thin --> d104["CT 104 · 4 Go"]
+        thin --> d105["CT 105 · 4 Go"]
     end
     subgraph usb1["Disque USB 5 To n°1 · ZFS « Disque1 »"]
         data["Disque1/data ~584 Go<br/>/mnt/data"]

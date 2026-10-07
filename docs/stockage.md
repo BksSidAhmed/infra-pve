@@ -38,6 +38,7 @@ Compression ZFS activée, ARC limité à environ 0,72 Gio.
 | 102 adguard | 4 Go | 0,8 Go (21 %) |
 | 103 paperless | 24 Go | 5,1 Go (23 %) |
 | 104 accueil | 4 Go | 1,6 Go (44 %) |
+| 105 surveillance | 4 Go | 3.6G (98%) |
 
 Note : `lvs` montre le thin du CT 100 alloué à 99 % alors que `df` n'en voit que 45 % : des blocs
 libérés n'ont pas été rendus au pool (un `pct fstrim 100` les récupérerait). Sans gravité tant que le pool a de la place.
