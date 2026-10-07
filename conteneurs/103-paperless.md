@@ -28,7 +28,23 @@
 
 - OCR `fra+eng`, dates JJ/MM/AAAA, rangement `année/correspondant/date titre`.
 - Consommation récursive, sous-dossiers → étiquettes, doublons supprimés, **polling 30 s** (inotify échoue sur les sous-dossiers profonds).
-- 11 types de documents en français en apprentissage automatique, étiquette d'arrivée « À traiter ».
+- Étiquette d'arrivée « À traiter » sur chaque nouveau document.
+
+## Dossiers (classement du 2026-10-07)
+
+Paperless n'a pas de vrais dossiers : chaque « dossier » est un **type de document** (en apprentissage
+automatique) + une **vue enregistrée** du même nom dans le menu de gauche. Les fichiers sur le disque ne bougent
+pas (rangement `année/correspondant/date titre` inchangé).
+
+Identité et papiers · Diplômes et scolarité · Cours et formations · Auto-entreprise (URSSAF) ·
+Missions freelance (factures, CRA, contrats) · Emploi salarié (paie, contrats, certificats) · France Travail ·
+Candidatures et CV · Impôts · Banque et crédit · Logement et énergie · Santé, mutuelle et assurances ·
+Achats et abonnements · Divers (à vérifier).
+
+- Étiquette « Doublon possible » sur 9 paires de documents en double, à trier par Boukais.
+- L'apprentissage automatique ne s'entraîne que sur les documents **sans** « À traiter » : il deviendra utile
+  au fur et à mesure que Boukais retire cette étiquette des documents vérifiés.
+- État d'avant le classement (types, vues, type de chaque document) : `/mnt/docs/data/avant-classement-20261007.json`.
 
 ## Partages Samba (compte `scanner`)
 

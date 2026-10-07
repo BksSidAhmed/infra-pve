@@ -3,6 +3,11 @@
 Format : date — quoi — pourquoi — comment revenir en arrière. Le plus récent en haut.
 
 ## 2026-10-07
+- Paperless (CT 103) : les 218 documents classés dans 14 dossiers (types de documents + vues du menu de gauche,
+  voir `conteneurs/103-paperless.md`), d'après leur contenu. Les 15 anciens types et 11 anciennes vues sont remplacés,
+  étiquette « Doublon possible » ajoutée sur 18 documents. Aucun document supprimé, fichiers non déplacés.
+  Pourquoi : tout était en vrac, Boukais veut trier dossier par dossier.
+  Retour arrière : état d'avant dans `/mnt/docs/data/avant-classement-20261007.json` (Disque2) à réappliquer.
 - Homepage (CT 104) : nouveau groupe « Disques » avec l'occupation en direct de Disque1, Disque2, SSD (local-lvm)
   et du disque du CT Plex, via l'API Proxmox (jeton `root@pam!homepage` existant, widgets `customapi`).
   Pourquoi : suivre l'espace disque d'un coup d'œil (relevé du jour : Disque1 14 %, Disque2 0,2 %, local-lvm 12 %,
