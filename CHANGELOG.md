@@ -3,6 +3,9 @@
 Format : date — quoi — pourquoi — comment revenir en arrière. Le plus récent en haut.
 
 ## 2026-10-07
+- Médiathèque : film « Legend (1985) » (6,8 Go) supprimé à la demande de Boukais avec `supprimer-film "legend"`
+  (retiré de Radarr avec son dossier, torrent et fichier supprimés dans qBittorrent).
+  Retour arrière : le redemander dans Seerr / Radarr.
 - Demandes Seerr bloquées : ajout de `/usr/local/bin/films-introuvables` sur l'hôte (cron quotidien à 18 h,
   `/etc/cron.d/films-introuvables`, sujet ntfy dans `/etc/films-introuvables.conf`). Il explique pourquoi un film ou une série
   n'arrive pas, relance la recherche et prévient sur ntfy. Seerr : notifications du navigateur (Web Push) activées et
