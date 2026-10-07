@@ -24,6 +24,6 @@
 | Compte Samba `scanner` | base Samba du CT 103 (`pdbedit -L`) |
 | Compte admin AdGuard | CT 102 `/opt/AdGuardHome/AdGuardHome.yaml` (section `users`, hash) |
 | Compte admin Uptime Kuma | CT 105 `/opt/uptime-kuma/data/kuma.db` (table `user`, hash) |
-| Sujet ntfy des alertes (sert de clé) | Uptime Kuma, notification « ntfy téléphone » (CT 105 `kuma.db`, table `notification`) |
+| Sujet ntfy des alertes (sert de clé) | Uptime Kuma, notification « ntfy téléphone » (CT 105 `kuma.db`, table `notification`), copie sur l'hôte dans `/etc/films-introuvables.conf` |
 
 Tous ces fichiers sont en droits 600.

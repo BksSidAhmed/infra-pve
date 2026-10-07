@@ -1,6 +1,8 @@
 # Accès depuis l'extérieur
 
-Aucun port n'est ouvert sur la box (non vérifié côté box). Deux chemins existent :
+Un seul port est ouvert sur la Livebox : **TCP 32400 → Plex (192.168.1.100)**, voir [conteneurs/100-plex.md](../conteneurs/100-plex.md).
+Au 07/10, la box est en IPv4 partagée (CGN) Orange : sortie demandée dans la box, pas encore effective, donc Plex passe par son relais.
+Pour le reste, deux chemins existent :
 
 ## 1. Tailscale (administration)
 
@@ -17,12 +19,13 @@ Voir [reseau.md](reseau.md#tailscale).
 | Jeton du tunnel | `/opt/arr/cloudflared.env` dans le CT 101 (droits 600) — **jamais dans ce dépôt** |
 | Protection | Cloudflare Zero Trust (équipe `small-mouse-c3e2`, forfait Free), application Access « cine » |
 | Règle | « Famille » : liste d'emails autorisés, code à usage unique par mail, session 1 mois |
-| Ensuite | Connexion à Seerr avec le compte Plex |
+| Ensuite | Connexion à Seerr avec le compte Plex, ou un compte local Seerr (activé) pour les profils gérés Plex Home |
 
 ### Inviter quelqu'un
 
 1. Cloudflare Zero Trust → Access controls → Policies → **Famille** → ajouter l'email dans *Include · Emails*.
-2. Partager les bibliothèques Plex avec le compte Plex de la personne.
+2. Plex : créer un utilisateur géré dans Plex Home (ou partager avec son compte Plex s'il en a un).
+3. Seerr : créer un utilisateur local avec le même email (Utilisateurs → Créer un utilisateur local).
 
 ### Limites
 

@@ -1,0 +1,207 @@
+#!/usr/bin/env python3
+"""films-introuvables — prévient sur le téléphone quand une demande Seerr reste bloquée.
+
+À lancer sur l'hôte pve (installé dans /usr/local/bin/films-introuvables, cron tous les jours) :
+    films-introuvables           # vérifie, relance les recherches, envoie les alertes ntfy
+    films-introuvables --test    # montre ce qui serait envoyé, sans rien envoyer ni relancer
+
+Pour chaque demande Seerr approuvée depuis plus de DELAI_JOURS jours et toujours pas disponible :
+  - film pas encore sorti en vidéo : message avec la date de sortie prévue ;
+  - film sorti : recherche chez les indexeurs via Radarr pour savoir POURQUOI rien n'est pris
+    (aucun résultat, qualité refusée, pas de sources…), puis relance une recherche automatique ;
+  - série : nombre d'épisodes manquants, puis relance une recherche dans Sonarr.
+Ce qui est déjà en cours de téléchargement est ignoré. Une même demande n'est signalée
+qu'une fois tous les RAPPEL_JOURS jours (mémoire dans /var/lib/films-introuvables.json).
+
+Les clés API sont lues à chaque lancement dans le CT 101 : aucun secret dans ce script.
+Le ou les sujets ntfy sont dans /etc/films-introuvables.conf (NTFY_TOPICS=sujet1,sujet2).
+"""
+import json
+import re
+import subprocess
+import sys
+import urllib.request
+from collections import Counter
+from datetime import datetime, timedelta, timezone
+
+CT = "101"
+HOTE = "http://192.168.1.101"
+SEERR_URL = "https://cine.bks-home.com"
+CONF = "/etc/films-introuvables.conf"
+ETAT = "/var/lib/films-introuvables.json"
+DELAI_JOURS = 3
+RAPPEL_JOURS = 7
+
+# Motifs de refus de Radarr (en anglais) → explication simple.
+REFUS = [
+    ("not wanted in profile", "qualité non acceptée"),
+    ("quality", "qualité non acceptée"),
+    ("seeder", "pas assez de sources (seeders)"),
+    ("size", "taille anormale"),
+    ("language", "langue non acceptée"),
+    ("unknown movie", "nom de fichier non reconnu"),
+    ("blocklist", "déjà essayé et mis de côté"),
+    ("custom format", "format refusé"),
+]
+
+maintenant = datetime.now(timezone.utc)
+
+
+def pct(*cmd):
+    return subprocess.run(["pct", "exec", CT, "--", *cmd],
+                          capture_output=True, text=True, check=True).stdout
+
+
+def cle_arr(appli):
+    xml = pct("cat", f"/opt/arr/config/{appli}/config.xml")
+    return re.search(r"<ApiKey>(.*?)</ApiKey>", xml).group(1)
+
+
+def cle_seerr():
+    return json.loads(pct("cat", "/opt/arr/config/seerr/settings.json"))["main"]["apiKey"]
+
+
+def api(url, cle, methode="GET", corps=None, delai=60):
+    data = json.dumps(corps).encode() if corps is not None else None
+    req = urllib.request.Request(url, data=data, method=methode,
+                                 headers={"X-Api-Key": cle, "Content-Type": "application/json"})
+    with urllib.request.urlopen(req, timeout=delai) as r:
+        body = r.read()
+    return json.loads(body) if body else None
+
+
+def date(texte):
+    return datetime.fromisoformat(texte.replace("Z", "+00:00")) if texte else None
+
+
+def jour(d):
+    return d.strftime("%d/%m/%Y")
+
+
+def pourquoi(releases):
+    """Résume le résultat d'une recherche Radarr en une phrase."""
+    if not releases:
+        return "aucun résultat chez les indexeurs (film trop rare ou pas encore partagé)"
+    if any(not r.get("rejected") for r in releases):
+        return "une version acceptable vient d'apparaître"
+    motifs = Counter()
+    for r in releases:
+        for rej in r.get("rejections", []):
+            bas = rej.lower()
+            motifs[next((fr for en, fr in REFUS if en in bas), rej[:60])] += 1
+    principaux = ", ".join(m for m, _ in motifs.most_common(2))
+    return f"{len(releases)} résultat(s) trouvé(s) mais tous refusés : {principaux}"
+
+
+def film(demande, radarr, test):
+    tmdb = demande["media"]["tmdbId"]
+    films = api(f"{HOTE}:7878/api/v3/movie?tmdbId={tmdb}", radarr)
+    if not films:
+        return f"Film (TMDB {tmdb})", "la demande n'est jamais arrivée dans Radarr."
+    m = films[0]
+    titre = f"{m['title']} ({m.get('year')})"
+    if m.get("hasFile"):
+        return None
+    if api(f"{HOTE}:7878/api/v3/queue/details?movieId={m['id']}", radarr):
+        return None  # téléchargement en cours
+    if not m.get("isAvailable"):
+        sortie = date(m.get("digitalRelease")) or date(m.get("physicalRelease"))
+        quand = f"prévue le {jour(sortie)}" if sortie else "date pas encore connue"
+        return titre, (f"pas encore sorti en vidéo ({quand}). Il sera téléchargé "
+                       "automatiquement dès sa sortie, rien à faire.")
+    raison = pourquoi(api(f"{HOTE}:7878/api/v3/release?movieId={m['id']}", radarr, delai=300))
+    if not test:
+        api(f"{HOTE}:7878/api/v3/command", radarr, "POST",
+            {"name": "MoviesSearch", "movieIds": [m["id"]]})
+    return titre, f"pas encore téléchargé : {raison}. Nouvelle recherche lancée."
+
+
+def serie(demande, sonarr, test):
+    tvdb = demande["media"]["tvdbId"]
+    series = api(f"{HOTE}:8989/api/v3/series?tvdbId={tvdb}", sonarr)
+    if not series:
+        return f"Série (TVDB {tvdb})", "la demande n'est jamais arrivée dans Sonarr."
+    s = series[0]
+    st = s.get("statistics", {})
+    manquants = st.get("episodeCount", 0) - st.get("episodeFileCount", 0)
+    if manquants <= 0:
+        return None
+    if api(f"{HOTE}:8989/api/v3/queue/details?seriesId={s['id']}", sonarr):
+        return None
+    if not test:
+        api(f"{HOTE}:8989/api/v3/command", sonarr, "POST",
+            {"name": "SeriesSearch", "seriesId": s["id"]})
+    return (f"{s['title']} ({s.get('year')})",
+            f"{manquants} épisode(s) introuvable(s) pour l'instant. Nouvelle recherche lancée.")
+
+
+def ntfy(sujets, titre, message):
+    for sujet in sujets:
+        corps = {"topic": sujet, "title": titre, "message": message,
+                 "tags": ["clapper"], "click": SEERR_URL}
+        req = urllib.request.Request("https://ntfy.sh/", data=json.dumps(corps).encode(),
+                                     headers={"Content-Type": "application/json"})
+        urllib.request.urlopen(req, timeout=30).read()
+
+
+def lire_json(chemin, defaut):
+    try:
+        with open(chemin) as f:
+            return json.load(f)
+    except (OSError, ValueError):
+        return defaut
+
+
+def main():
+    test = "--test" in sys.argv
+    sujets = []
+    try:
+        for ligne in open(CONF):
+            if ligne.startswith("NTFY_TOPICS="):
+                sujets = [s.strip() for s in ligne.split("=", 1)[1].split(",") if s.strip()]
+    except OSError:
+        pass
+    if not sujets and not test:
+        sys.exit(f"Aucun sujet ntfy dans {CONF}")
+
+    seerr, radarr, sonarr = cle_seerr(), cle_arr("radarr"), cle_arr("sonarr")
+    etat = lire_json(ETAT, {})
+    demandes = api(f"{HOTE}:5055/api/v1/request?take=200&filter=all&sort=added", seerr)["results"]
+
+    signales = 0
+    for d in demandes:
+        # Demande : 2 = approuvée, 4 = échec. Média : 5 = disponible.
+        if d["status"] not in (2, 4) or d["media"].get("status") == 5:
+            continue
+        if maintenant - date(d["createdAt"]) < timedelta(days=DELAI_JOURS):
+            continue
+        cle = str(d["id"])
+        dernier = date(etat.get(cle))
+        if dernier and maintenant - dernier < timedelta(days=RAPPEL_JOURS) and not test:
+            continue
+        res = (film if d["type"] == "movie" else serie)(d, sonarr if d["type"] == "tv" else radarr, test)
+        if res is None:
+            continue
+        titre, explication = res
+        qui = d["requestedBy"].get("displayName") or "quelqu'un"
+        message = f"Demandé par {qui} le {jour(date(d['createdAt']))} : {explication}"
+        print(f"• {titre} — {message}")
+        signales += 1
+        if not test:
+            ntfy(sujets, f"Introuvable : {titre}", message)
+            etat[cle] = maintenant.isoformat()
+
+    # On oublie les demandes qui ne sont plus bloquées.
+    actives = {str(d["id"]) for d in demandes if d["status"] in (2, 4) and d["media"].get("status") != 5}
+    etat = {k: v for k, v in etat.items() if k in actives}
+    if not test:
+        with open(ETAT, "w") as f:
+            json.dump(etat, f)
+    print(f"{signales} demande(s) signalée(s)." + (" Mode test : rien envoyé ni relancé." if test else ""))
+
+
+if __name__ == "__main__":
+    try:
+        main()
+    except subprocess.CalledProcessError as e:
+        sys.exit(f"Erreur pendant « {' '.join(e.cmd)} » : {e.stderr.strip()}")

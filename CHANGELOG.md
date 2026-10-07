@@ -3,6 +3,18 @@
 Format : date — quoi — pourquoi — comment revenir en arrière. Le plus récent en haut.
 
 ## 2026-10-07
+- Demandes Seerr bloquées : ajout de `/usr/local/bin/films-introuvables` sur l'hôte (cron quotidien à 18 h,
+  `/etc/cron.d/films-introuvables`, sujet ntfy dans `/etc/films-introuvables.conf`). Il explique pourquoi un film ou une série
+  n'arrive pas, relance la recherche et prévient sur ntfy. Seerr : notifications du navigateur (Web Push) activées et
+  `applicationUrl` = https://cine.bks-home.com (sauvegarde `settings.json.bak-webpush`). Profil qualité Radarr inchangé
+  (accepte déjà 720p à 4K). Pourquoi : aucun retour quand une demande « tournait » sans fin.
+  Retour arrière : supprimer `/etc/cron.d/films-introuvables`, le script et sa conf ; dans Seerr, désactiver Web Push
+  (Paramètres → Notifications) ou restaurer `settings.json.bak-webpush` (Seerr arrêté).
+- CT 100 (Plex) : accès à distance en port manuel 32400 (`ManualPortMappingMode=1`, `ManualPortMappingPort=32400`).
+  Livebox (par Boukais) : règle NAT TCP 32400 → plex, sortie du CGN cochée, box redémarrée.
+  Pourquoi : plex.tv voyait le serveur « Not Reachable » (UPnP accepté par la box mais rien n'arrivait).
+  Toujours injoignable depuis Internet en fin de journée → IPv4 partagée Orange, appel au 3900 à faire.
+  Retour arrière : restaurer `Preferences.xml.bak-20261007` (Plex arrêté), supprimer la règle NAT.
 - CT 101 : connexion « Plex Media Server » ajoutée dans Radarr et Sonarr par Boukais (192.168.1.100:32400, Update Library).
   Retour arrière : la supprimer dans Settings → Connect.
 - CT 100 (Plex) : analyse automatique des bibliothèques activée (scan partiel) + analyse périodique toutes les 6 h.

@@ -40,6 +40,7 @@ flowchart LR
     proton --- internet
     cf --- internet
     ct105 -. "alertes ntfy.sh<br/>(sortant)" .-> internet
+    nic0 -. "films-introuvables<br/>ntfy.sh (sortant)" .-> internet
 ```
 
 - Trait plein : réseau local. Pointillés : tunnels chiffrés, tous **sortants** (aucun port ouvert sur la box).
