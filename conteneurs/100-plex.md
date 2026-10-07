@@ -32,7 +32,7 @@ Réglages dans `Preferences.xml` (`/var/lib/plexmediaserver/Library/Application 
   `Disque1/data` sur le même noyau (testé : `[Notify] New directory` dans le journal Plex).
 - Sauvegarde d'avant : `Preferences.xml.bak-scan-auto`. Retour arrière : `systemctl stop plexmediaserver`,
   remettre la sauvegarde, `systemctl start plexmediaserver`.
-- À faire par Boukais : connexion « Plex Media Server » dans Radarr et Sonarr (voir [101-arr.md](101-arr.md)).
+- Radarr et Sonarr préviennent aussi Plex après chaque import (connexion « Plex Media Server », voir [101-arr.md](101-arr.md)).
 
 ## Commandes utiles (depuis l'hôte)
 

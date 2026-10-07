@@ -3,6 +3,8 @@
 Format : date — quoi — pourquoi — comment revenir en arrière. Le plus récent en haut.
 
 ## 2026-10-07
+- CT 101 : connexion « Plex Media Server » ajoutée dans Radarr et Sonarr par Boukais (192.168.1.100:32400, Update Library).
+  Retour arrière : la supprimer dans Settings → Connect.
 - CT 100 (Plex) : analyse automatique des bibliothèques activée (scan partiel) + analyse périodique toutes les 6 h.
   Pourquoi : les nouveaux films/épisodes n'apparaissaient qu'après une actualisation manuelle (réglages désactivés,
   aucune connexion Plex dans Radarr/Sonarr). Retour arrière : restaurer `Preferences.xml.bak-scan-auto` (Plex arrêté).
