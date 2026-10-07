@@ -17,6 +17,23 @@
 - Métadonnées et vignettes sur le disque racine du CT (sauvegardé par vzdump).
 - Accès distant : par le relais/accès distant Plex, **pas** par Cloudflare.
 
+## Mise à jour automatique des bibliothèques (depuis le 07/10/2026)
+
+Réglages dans `Preferences.xml` (`/var/lib/plexmediaserver/Library/Application Support/Plex Media Server/`) :
+
+| Réglage | Valeur | Effet |
+|---|---|---|
+| `FSEventLibraryUpdatesEnabled` | 1 | « Analyser ma bibliothèque automatiquement » : Plex surveille `/data/media` (inotify) |
+| `FSEventLibraryPartialScanEnabled` | 1 | Ne scanne que le dossier modifié |
+| `ScheduledLibraryUpdatesEnabled` | 1 | Analyse périodique de secours |
+| `ScheduledLibraryUpdateInterval` | 21600 | Toutes les 6 h |
+
+- La surveillance marche à travers le montage : CT 100, CT 101 et l'hôte partagent le même dataset ZFS
+  `Disque1/data` sur le même noyau (testé : `[Notify] New directory` dans le journal Plex).
+- Sauvegarde d'avant : `Preferences.xml.bak-scan-auto`. Retour arrière : `systemctl stop plexmediaserver`,
+  remettre la sauvegarde, `systemctl start plexmediaserver`.
+- À faire par Boukais : connexion « Plex Media Server » dans Radarr et Sonarr (voir [101-arr.md](101-arr.md)).
+
 ## Commandes utiles (depuis l'hôte)
 
 ```sh
