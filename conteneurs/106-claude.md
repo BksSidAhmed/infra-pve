@@ -8,7 +8,7 @@
 | Options | non privilégié, `nesting=1`, démarrage auto, DNS du CT : 1.1.1.1, tag `claude`, SSH et postfix désactivés |
 | Utilisateur | `claude` (uid 1000), Claude Code dans `~/.local/bin/claude` (installeur officiel, mise à jour automatique) |
 | Dossier de travail | `/home/claude/plex` : `CLAUDE.md` (règles), `.claude/settings.json`, `journal.md` (actions faites) |
-| Service | `claude-rc.service` (systemd) : lance `claude remote-control --name plex` dans tmux (session `claude`) |
+| Service | `claude-rc.service` (systemd) : lance `claude remote-control --name plex --capacity 2` dans tmux (session `claude`), max 2 sessions à la fois pour tenir dans 1 Go |
 | Secrets | `/home/claude/.config/plex-api.env` (600) : clés Radarr, Sonarr, Prowlarr, Seerr, jeton Plex, compte qBittorrent ; connexion au compte Claude dans `~/.claude/` |
 | Config LXC | [config/lxc/106.conf](../config/lxc/106.conf) · fichiers : [config/ct106-claude/](../config/ct106-claude/) |
 
@@ -34,8 +34,14 @@ pct exec 106 -- cat /home/claude/plex/journal.md # ce que Claude a fait
 ## Première mise en route (une seule fois)
 
 Depuis l'hôte (Termius → `100.73.1.43`) : `pct enter 106`, puis `su - claude`, `claude`, suivre le lien de
-connexion au compte Claude, accepter de faire confiance au dossier, quitter (`/exit`), puis en root :
-`systemctl enable --now claude-rc`.
+connexion au compte Claude, accepter de faire confiance au dossier, quitter (Ctrl+C deux fois), puis en root :
+`systemctl enable --now claude-rc` et répondre `y` à « Enable Remote Control? » dans `tmux attach -t claude`
+(une seule fois, le choix est retenu). Fait le 09/10/2026 (compte Claude Pro de Boukais).
+
+## Utilisation
+
+Depuis le portable : appli Claude → onglet **Code** → session **plex** (ou https://claude.ai/code),
+ou dans le projet Claude « ProxMox » en demandant de travailler dans le dossier `plex` de l'appareil `claude`.
 
 ## Retour arrière / coupure d'urgence
 

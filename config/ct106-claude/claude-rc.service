@@ -8,7 +8,7 @@ Type=forking
 User=claude
 WorkingDirectory=/home/claude/plex
 Environment=PATH=/home/claude/.local/bin:/usr/local/bin:/usr/bin:/bin
-ExecStart=/usr/bin/tmux new-session -d -s claude -c /home/claude/plex "claude remote-control --name plex"
+ExecStart=/usr/bin/tmux new-session -d -s claude -c /home/claude/plex "claude remote-control --name plex --capacity 2"
 ExecStop=/usr/bin/tmux kill-session -t claude
 Restart=on-failure
 RestartSec=30
