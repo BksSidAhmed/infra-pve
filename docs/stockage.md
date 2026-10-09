@@ -53,6 +53,7 @@ et les données Plex (1,3 Go, dont 0,7 Go de cache de transcodage).
 | 103 paperless | 24 Go | 5,1 Go (23 %) |
 | 104 accueil | 4 Go | 1,6 Go (44 %) |
 | 105 surveillance | 8 Go | 3,4 Go (46 %) |
+| 106 claude | 8 Go | ~1 Go |
 
 Note : `lvs` montre le thin du CT 100 alloué à 99 % alors que `df` n'en voit que 50 % : des blocs
 libérés n'ont pas été rendus au pool (un `pct fstrim 100` les récupérerait). Sans gravité tant que le pool a de la place.

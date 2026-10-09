@@ -1,0 +1,7 @@
+{
+  "permissions": {
+    "allow": ["Bash(curl:*)", "Bash(jq:*)", "Bash(set -a:*)", "Bash(. ~/.config/plex-api.env:*)"],
+    "deny": ["Bash(ssh:*)", "Bash(cat ~/.config/plex-api.env:*)"]
+  },
+  "env": { "TZ": "Europe/Paris" }
+}

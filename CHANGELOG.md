@@ -3,6 +3,13 @@
 Format : date — quoi — pourquoi — comment revenir en arrière. Le plus récent en haut.
 
 ## 2026-10-09
+- **Nouveau CT 106 `claude`** (192.168.1.106, Debian 13, 2 vCPU, 1 Go RAM, 8 Go) : Claude Code en Remote Control pour
+  gérer films et séries depuis le portable sans PC allumé. Accès **uniquement** par API (Radarr, Sonarr, Prowlarr,
+  qBittorrent, Seerr, Plex ; clés copiées dans `/home/claude/.config/plex-api.env`, compte qBittorrent repris du
+  client de téléchargement de Radarr) ; aucune clé SSH ni jeton Proxmox. Service `claude-rc` (tmux), règles dans
+  `/home/claude/plex/CLAUDE.md` (copie : config/ct106-claude/). Voir conteneurs/106-claude.md.
+  Pourquoi : demande de Boukais (version « Plex seulement », plus sûre qu'un accès admin permanent).
+  Retour arrière : `pct destroy 106`, puis régénérer les clés API des applis si besoin.
 - Plex (CT 100) : Détective Conan (bibliothèque Anime) était associé au téléfilm « Un défi pour Shinichi Kudo »
   (tvdb 249009). Corrigé par « Corriger la correspondance » vers l'animé de 1996 (plex://show/5d9c0847705e7a001e6d7c86,
   tvdb 72454). Plex range les 214 épisodes dans une seule saison 1, numéros absolus, titres vérifiés.

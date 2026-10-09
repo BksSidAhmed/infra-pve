@@ -67,6 +67,7 @@ Si une info du dépôt semble fausse, vérifie sur le serveur (lecture seule) et
 - **CT 103 paperless** (192.168.1.103) — Paperless-ngx (Docker, `/opt/paperless`) + Samba `\\192.168.1.103\scan`.
 - **CT 104 accueil** (192.168.1.104) — Homepage (Docker, `/opt/homepage`), alias `accueil.home`.
 - **CT 105 surveillance** (192.168.1.105) — Uptime Kuma (Docker, `/opt/uptime-kuma`), 13 sondes, alertes ntfy sur le téléphone.
+- **CT 106 claude** (192.168.1.106) — Claude Code en Remote Control « Plex seulement » (API des *arr et de Plex, aucun accès admin). Dossier `/home/claude/plex`.
 
 ## 5. Procédure après chaque modification de l'infra
 

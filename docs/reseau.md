@@ -21,6 +21,7 @@ Tous sur `vmbr0` avec une IP fixe, passerelle `192.168.1.1`.
 | 103 paperless | 192.168.1.103 | 192.168.1.1 | 8000, 445 (Samba) |
 | 104 accueil | 192.168.1.104 | 1.1.1.1 | 80 |
 | 105 surveillance | 192.168.1.105 | 1.1.1.1 | 80 (Uptime Kuma) |
+| 106 claude | 192.168.1.106 | 1.1.1.1 | aucun (sortant seulement) |
 
 ## Hôte : ports en écoute
 

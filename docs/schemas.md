@@ -26,6 +26,7 @@ flowchart LR
             vmbr0 --- ct103["CT 103 paperless<br/>.103 · :8000, Samba"]
             vmbr0 --- ct104["CT 104 accueil<br/>.104 · :80"]
             vmbr0 --- ct105["CT 105 surveillance<br/>.105 · Uptime Kuma :80"]
+            vmbr0 --- ct106["CT 106 claude<br/>.106 · Claude Code (API Plex/arr)"]
         end
     end
 
@@ -88,6 +89,7 @@ flowchart TB
         thin --> d103["CT 103 · 24 Go"]
         thin --> d104["CT 104 · 4 Go"]
         thin --> d105["CT 105 · 8 Go"]
+        thin --> d106["CT 106 · 8 Go"]
     end
     subgraph usb1["Disque USB 5 To n°1 · ZFS « Disque1 »"]
         data["Disque1/data ~584 Go<br/>/mnt/data"]
