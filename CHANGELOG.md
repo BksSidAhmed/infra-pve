@@ -2,6 +2,17 @@
 
 Format : date — quoi — pourquoi — comment revenir en arrière. Le plus récent en haut.
 
+## 2026-10-09
+- Médiathèque : Les Simpson saison 9, 15 fichiers renommés (aucun supprimé). Le pack STEGNER (WEB-DL) suit un
+  autre ordre que la diffusion : le fichier « E03 » contenait l'épisode 17 (« La malédiction des Simpson ») et les
+  fichiers E04 à E17 contenaient les épisodes 3 à 16. Correction : ancien E03 → E17, ancien E04…E17 → E03…E16.
+  Sonarr (RescanSeries) et Plex (scan du dossier) relancés, vérifié par les sous-titres incrustés.
+  Les 784 fichiers des 37 saisons ont été contrôlés (sous-titres forcés, et .srt pour la saison 35) : seule la saison 9
+  était décalée. S02E07 et S04E07 ont juste les sous-titres forcés d'un autre épisode (image et son corrects), laissés tels quels.
+  Pourquoi : dans Plex, titre, résumé et vignette ne correspondaient pas à l'épisode joué.
+  Retour arrière : dans `Season 9`, faire l'inverse (E17 → E03, E03…E16 → E04…E17) en passant par des noms temporaires,
+  puis relancer Sonarr et Plex. Pas de liste conservée sur le serveur (demande de Boukais).
+
 ## 2026-10-07
 - Paperless (CT 103) : index de recherche reconstruit avec `docker exec -u paperless … document_index reindex`.
   Pourquoi : la reconstruction lancée en root juste après le classement avait cassé la recherche (droits).
