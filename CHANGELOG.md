@@ -3,6 +3,13 @@
 Format : date — quoi — pourquoi — comment revenir en arrière. Le plus récent en haut.
 
 ## 2026-10-09
+- Sonarr : Détective Conan (demandé dans Seerr le 08/10, saison 1) ne se téléchargeait pas. Cause : la numérotation
+  « scène » (TheXEM) de la série met les 1 216 épisodes dans une seule saison 1, donc Sonarr refuse tous les packs
+  « S01 » français (« trop petit », « pas tous diffusés ») et les recherches épisode par épisode ne trouvent rien.
+  Correction : pack `Detective.Conan.S01.REMASTERED.MULTI.VFF.1080p.WEB…-T3KASHi` (9,6 Go, 28 épisodes) ajouté à la main
+  dans qBittorrent (catégorie `tv-sonarr`), les 28 épisodes rangés par Sonarr. L'entrée restée « import bloqué » dans la
+  file d'attente Sonarr (1 216 lignes) a été retirée sans toucher au torrent (il continue de partager). Aucun réglage modifié.
+  Retour arrière : supprimer le torrent et les fichiers dans `/data/media/anime/Detective Conan`.
 - Médiathèque : Les Simpson saison 9, 15 fichiers renommés (aucun supprimé). Le pack STEGNER (WEB-DL) suit un
   autre ordre que la diffusion : le fichier « E03 » contenait l'épisode 17 (« La malédiction des Simpson ») et les
   fichiers E04 à E17 contenaient les épisodes 3 à 16. Correction : ancien E03 → E17, ancien E04…E17 → E03…E16.
