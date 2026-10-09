@@ -3,6 +3,10 @@
 Format : date — quoi — pourquoi — comment revenir en arrière. Le plus récent en haut.
 
 ## 2026-10-09
+- Plex (CT 100) : Détective Conan (bibliothèque Anime) était associé au téléfilm « Un défi pour Shinichi Kudo »
+  (tvdb 249009). Corrigé par « Corriger la correspondance » vers l'animé de 1996 (plex://show/5d9c0847705e7a001e6d7c86,
+  tvdb 72454). Plex range les 214 épisodes dans une seule saison 1, numéros absolus, titres vérifiés.
+  Retour arrière : refaire « Corriger la correspondance » dans Plex.
 - Sonarr : Détective Conan, saisons françaises 2 à 5 ajoutées à la main (packs Amen, VF 1080p, la 5 en 576p, ~47 Go)
   + épisodes 29 à 42 pris dans le pack Amen « S01 » (seuls ces 14 fichiers téléchargés). Résultat : épisodes 1 à 214
   dans Plex (57 Go). Les packs français ne suivent pas le découpage TVDB (S02 FR = épisodes 43 à 85, etc.) et Sonarr
