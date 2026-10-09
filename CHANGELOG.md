@@ -3,6 +3,12 @@
 Format : date — quoi — pourquoi — comment revenir en arrière. Le plus récent en haut.
 
 ## 2026-10-09
+- Sonarr : Détective Conan, saisons françaises 2 à 5 ajoutées à la main (packs Amen, VF 1080p, la 5 en 576p, ~47 Go)
+  + épisodes 29 à 42 pris dans le pack Amen « S01 » (seuls ces 14 fichiers téléchargés). Résultat : épisodes 1 à 214
+  dans Plex (57 Go). Les packs français ne suivent pas le découpage TVDB (S02 FR = épisodes 43 à 85, etc.) et Sonarr
+  ne les importe pas tout seul : import manuel via l'API (`manualimport` sans `seriesId`, puis commande `ManualImport`
+  en mode copie, donc liens physiques). Entrées « import bloqué » retirées de la file Sonarr sans toucher aux torrents.
+  Retour arrière : supprimer les fichiers dans `/data/media/anime/Detective Conan` et les torrents dans qBittorrent.
 - Sonarr : Détective Conan (demandé dans Seerr le 08/10, saison 1) ne se téléchargeait pas. Cause : la numérotation
   « scène » (TheXEM) de la série met les 1 216 épisodes dans une seule saison 1, donc Sonarr refuse tous les packs
   « S01 » français (« trop petit », « pas tous diffusés ») et les recherches épisode par épisode ne trouvent rien.
