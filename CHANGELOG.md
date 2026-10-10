@@ -5,7 +5,7 @@ Format : date — quoi — pourquoi — comment revenir en arrière. Le plus ré
 ## 2026-10-10
 - Accès à Seerr pour un nouvel invité : email ajouté à la politique Cloudflare Access « Famille », compte local Seerr
   (utilisateur 2) créé par Boukais, permissions passées de « Demander » (32) à « Demander + Approbation automatique »
-  (160) via l'API. Pas de compte Plex : profil géré Plex Home (lecture à distance limitée par le relais, CGN Orange).
+  (160) via l'API, puis + « Demandes avancées » (8352) pour qu'il choisisse la qualité. Pas de compte Plex : profil géré Plex Home (lecture à distance limitée par le relais, CGN Orange).
   Retour arrière : retirer l'email de « Famille » ; dans Seerr, supprimer l'utilisateur ou décocher Approbation automatique.
 - Cloudflare Access : la connexion à « cine » ne proposait plus que « Cloudflare » (compte Cloudflare, redirection
   automatique), les invités tombaient sur « Sign in to Cloudflare ». Ajout du fournisseur **One-time PIN** et activation

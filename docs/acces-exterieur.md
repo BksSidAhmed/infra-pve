@@ -29,7 +29,7 @@ Voir [reseau.md](reseau.md#tailscale).
 3. Seerr : créer un utilisateur local avec le même email (Utilisateurs → Créer un utilisateur local). L'envoi de mail
    n'est pas configuré dans Seerr : choisir soi-même le mot de passe et le transmettre. La personne se connecte avec
    « Se connecter avec vos identifiants Seerr ».
-4. Pour que ses demandes partent sans validation : Seerr → Utilisateurs → la personne → Permissions → **Approbation automatique**.
+4. Pour que ses demandes partent sans validation : Seerr → Utilisateurs → la personne → Permissions → **Approbation automatique** ; « Demandes avancées » pour qu'elle choisisse la qualité.
 
 Si un invité tombe sur « Sign in to Cloudflare » (e-mail + mot de passe) en ouvrant cine.bks-home.com, c'est que
 One-time PIN n'est plus proposé dans l'application « cine » : la page redirige alors vers la connexion compte Cloudflare.
