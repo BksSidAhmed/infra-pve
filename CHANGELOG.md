@@ -3,6 +3,9 @@
 Format : date — quoi — pourquoi — comment revenir en arrière. Le plus récent en haut.
 
 ## 2026-10-29
+- Hôte : ajout de `/usr/local/bin/alerte-c411` + cron horaire `/etc/cron.d/alerte-c411` (alerte ntfy quand C411
+  bloque les téléchargements, et quand il débloque). Pourquoi : demande de Boukais, pour ne plus être surpris.
+  Retour arrière : supprimer les deux fichiers et `/var/lib/alerte-c411.json`.
 - qBittorrent (CT 101) : C411 refusait les nouveaux téléchargements (« Marge épuisée : téléchargement bloqué, le seed
   continue », HTTP 403). Cause : file d'attente limitée à 3 envois / 5 torrents actifs, 103 torrents terminés ne
   partageaient pas (1,18 To reçus pour 43 Go envoyés). Indexeur Prowlarr, VPN gluetun et DNS vérifiés : OK.
