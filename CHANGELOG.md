@@ -3,6 +3,9 @@
 Format : date — quoi — pourquoi — comment revenir en arrière. Le plus récent en haut.
 
 ## 2026-10-29
+- Prowlarr : ajout de **Knaben** (méta-moteur public, priorité 35), synchronisé dans Sonarr et Radarr. EZTV essayé sur
+  ses 5 adresses : refusé (protection Cloudflare, il faudrait FlareSolverr), non ajouté.
+  Sauvegarde : `/opt/arr/config/prowlarr/prowlarr.db.bak-eztv-knaben`. Retour arrière : supprimer Knaben dans Prowlarr.
 - Prowlarr : ajout des indexeurs publics **Nyaa.si** (animés, « Sonarr compatibility ») et **The Pirate Bay**,
   priorité 35 (C411 reste préféré à 25), synchronisés dans Sonarr et Radarr. Pourquoi : C411 était le seul indexeur
   et bloquait (marge épuisée). Sauvegarde : `/opt/arr/config/prowlarr/prowlarr.db.bak-indexeurs`.
