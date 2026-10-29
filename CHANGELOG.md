@@ -2,6 +2,15 @@
 
 Format : date — quoi — pourquoi — comment revenir en arrière. Le plus récent en haut.
 
+## 2026-10-29
+- qBittorrent (CT 101) : C411 refusait les nouveaux téléchargements (« Marge épuisée : téléchargement bloqué, le seed
+  continue », HTTP 403). Cause : file d'attente limitée à 3 envois / 5 torrents actifs, 103 torrents terminés ne
+  partageaient pas (1,18 To reçus pour 43 Go envoyés). Indexeur Prowlarr, VPN gluetun et DNS vérifiés : OK.
+  Changement (API, à chaud) : envois actifs et torrents actifs illimités, téléchargements actifs toujours à 3, vitesse
+  d'envoi limitée à 10 Mo/s. Les téléchargements reprendront quand la marge sera remontée sur le site.
+  Retour arrière : remettre 3 envois / 5 torrents actifs et envoi illimité dans *Options*, ou restaurer
+  `qBittorrent.conf.bak-seed-c411` (qBittorrent arrêté).
+
 ## 2026-10-10
 - Accès à Seerr pour un nouvel invité : email ajouté à la politique Cloudflare Access « Famille », compte local Seerr
   (utilisateur 2) créé par Boukais, permissions passées de « Demander » (32) à « Demander + Approbation automatique »
