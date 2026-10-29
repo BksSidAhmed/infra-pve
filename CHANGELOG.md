@@ -3,6 +3,10 @@
 Format : date — quoi — pourquoi — comment revenir en arrière. Le plus récent en haut.
 
 ## 2026-10-29
+- Prowlarr : ajout des indexeurs publics **Nyaa.si** (animés, « Sonarr compatibility ») et **The Pirate Bay**,
+  priorité 35 (C411 reste préféré à 25), synchronisés dans Sonarr et Radarr. Pourquoi : C411 était le seul indexeur
+  et bloquait (marge épuisée). Sauvegarde : `/opt/arr/config/prowlarr/prowlarr.db.bak-indexeurs`.
+  Retour arrière : supprimer les deux indexeurs dans Prowlarr (la synchro les retire des *arr).
 - Hôte : ajout de `/usr/local/bin/alerte-c411` + cron horaire `/etc/cron.d/alerte-c411` (alerte ntfy quand C411
   bloque les téléchargements, et quand il débloque). Pourquoi : demande de Boukais, pour ne plus être surpris.
   Retour arrière : supprimer les deux fichiers et `/var/lib/alerte-c411.json`.
