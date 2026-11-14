@@ -38,6 +38,19 @@ connexion au compte Claude, accepter de faire confiance au dossier, quitter (Ctr
 `systemctl enable --now claude-rc` et répondre `y` à « Enable Remote Control? » dans `tmux attach -t claude`
 (une seule fois, le choix est retenu). Fait le 09/10/2026 (compte Claude Pro de Boukais).
 
+## Si la session « plex » ne répond plus (connexion au compte expirée)
+
+La connexion au compte Claude (`~/.claude/.credentials.json`) peut expirer (environ 30 jours la première fois).
+Symptômes : la session « plex » s'ouvre puis meurt ; dans `tmux attach -t claude` on lit « Failed to refresh session
+… Remote Control is only available with claude.ai subscriptions. Please use `/login` », alors que le service reste
+`active` et affiche « Connected ». Vérifier : `pct exec 106 -- su - claude -c "claude auth status"` → `"loggedIn": false`.
+
+Correction (Boukais seul, c'est son compte) : interface Proxmox → **pve** → **>_ Shell** (pas la console d'un CT),
+`pct enter 106`, `su - claude`, `claude`, faire confiance au dossier si demandé, taper `/login`, choisir
+**Claude account with subscription**, touche `c` pour copier le lien, l'ouvrir dans le navigateur, autoriser,
+coller le code (Ctrl+Maj+V), Entrée, quitter (Ctrl+C deux fois). Puis en root : `pct exec 106 -- systemctl restart claude-rc`.
+Arrivé le 07/11/2026, corrigé le 14/11/2026.
+
 ## Utilisation
 
 Depuis le portable : appli Claude → onglet **Code** → session **plex** (ou https://claude.ai/code),

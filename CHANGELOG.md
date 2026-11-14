@@ -2,6 +2,14 @@
 
 Format : date — quoi — pourquoi — comment revenir en arrière. Le plus récent en haut.
 
+## 2026-11-14
+- CT 106 `claude` : la session « plex » ne marchait plus depuis le 07/11. Cause : la connexion au compte Claude
+  (créée le 09/10) avait expiré sans pouvoir être renouvelée (`claude auth status` → non connecté, sessions tuées
+  par « Failed to refresh session … use /login »). Rien à voir avec AdGuard (le CT utilise 1.1.1.1).
+  Correction : Boukais s'est reconnecté (`/login`, abonnement Pro), puis `systemctl restart claude-rc` avec son accord ;
+  Claude Code est passé de 2.1.295 à 2.1.325 au redémarrage. Procédure notée dans conteneurs/106-claude.md.
+  Retour arrière : sans objet.
+
 ## 2026-10-29
 - Prowlarr : ajout de **Knaben** (méta-moteur public, priorité 35), synchronisé dans Sonarr et Radarr. EZTV essayé sur
   ses 5 adresses : refusé (protection Cloudflare, il faudrait FlareSolverr), non ajouté.
