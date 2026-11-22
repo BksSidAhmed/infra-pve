@@ -2,6 +2,28 @@
 
 Format : date — quoi — pourquoi — comment revenir en arrière. Le plus récent en haut.
 
+## 2026-11-22
+- **Incident du 21/11 (panne de courant)** : vers 19:10 le 21/11, une prise a explosé et `pve` s'est éteint
+  (dernière ligne du journal : 21/11 19:10). Il ne se rallumait plus, même avec un autre bloc 19,5 V. Pendant la panne,
+  le DHCP de la Livebox a été activé (plage 192.168.1.10-49) pour garder Internet sans AdGuard.
+  Le 22/11 le serveur est reparti : 1er démarrage à 14:16 (coupé à 14:18), 2e démarrage à 14:19, stable depuis.
+- Contrôle complet après la panne (lecture seule, rien modifié) :
+  - OK : réseau `nic0` 1 Gb/s sans erreur, températures normales (CPU 62 °C, NVMe 42 °C), CT 100/101/102/104/105/106
+    démarrés, Plex, Seerr, Sonarr, Radarr, Bazarr, Prowlarr, qBittorrent (VPN ProtonVPN actif), AdGuard, Homepage,
+    Uptime Kuma et `claude-rc` répondent, tunnel Cloudflare connecté (4 liaisons), sauvegarde vzdump du 21/11 01:00 OK.
+  - **CT 103 paperless ne démarre pas** (aux deux démarrages) : le pool `Disque2` n'a pas de service
+    `zfs-import@Disque2` ; il n'est importé qu'à 14:21 par Proxmox, après la tentative de démarrage du CT 103 (14:20),
+    dont le montage `/Disque2/paperless` échoue (« lxc.hook.pre-start » status 2). Problème latent depuis l'ajout de Disque2,
+    révélé par ce redémarrage. Correctif proposé (en attente d'accord) : `systemctl enable zfs-import@Disque2.service`
+    puis `pct start 103`.
+  - **Disque1 (sda, USB) : 5 erreurs de lecture** depuis 14:29 (ZFS READ=5, « No known data errors »), avec des
+    réinitialisations USB (`usb 4-2: reset`) et SMART `Current_Pending_Sector` = 5 (0 avant). Aucune erreur avant la panne.
+    Probablement lié à la coupure (choc électrique ou boîtier USB). À surveiller, voir recommandations.
+  - **Deux serveurs DHCP sur le réseau** : AdGuard (CT 102) distribue aussi en DHCP (192.168.1.10-40, lui-même comme DNS)
+    en plus de la Livebox (10-49). Plages qui se chevauchent : risque d'adresses en double. Décision demandée à Boukais.
+  - Ancien souci sans lien : les mails d'alerte de Postfix vers Hotmail restent bloqués (port 25 sortant fermé par le FAI).
+  Retour arrière : sans objet (aucune modification).
+
 ## 2026-11-14
 - CT 106 `claude` : la session « plex » ne marchait plus depuis le 07/11. Cause : la connexion au compte Claude
   (créée le 09/10) avait expiré sans pouvoir être renouvelée (`claude auth status` → non connecté, sessions tuées

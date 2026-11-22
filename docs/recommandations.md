@@ -5,6 +5,15 @@ Cocher / retirer une ligne quand c'est fait, et l'inscrire dans le [CHANGELOG](.
 
 ## 🔴 Haute
 
+- [ ] **CT 103 (Paperless) ne redémarre pas tout seul** (22/11) : `Disque2` est importé trop tard au démarrage.
+  Correctif : `systemctl enable zfs-import@Disque2.service` (comme Disque1). Retour arrière : `systemctl disable` du même service.
+- [ ] **Disque1 après la panne du 21/11** : 5 erreurs de lecture, 5 secteurs « en attente » (SMART 197), resets USB.
+  Vérifier le câble et l'alimentation du boîtier USB, lancer un test SMART long (`smartctl -t long /dev/sda`, ~10 h)
+  puis un scrub. Si les secteurs en attente augmentent : remplacer le disque. Médias et sauvegardes sont dessus.
+- [ ] **Un seul serveur DHCP** : depuis la panne, la Livebox et AdGuard distribuent tous les deux des adresses.
+  Garder AdGuard (il donne son propre DNS, donc le filtrage) et couper celui de la Livebox ; en cas de panne du serveur,
+  réactiver le DHCP de la Livebox (procédure dans [reseau.md](reseau.md)).
+
 - [x] **Erreurs ZFS sur Disque1** (07/10) : 17 erreurs CKSUM et 1 fichier corrompu (Harry Potter 5, 2160p).
   Réglé le 07/10 : film supprimé et re-téléchargé, `zpool clear`, scrub complet terminé à 15:24 avec 0 erreur
   (« No known data errors »). Incident ponctuel, cause probable : liaison USB. À surveiller : si des erreurs
@@ -23,7 +32,7 @@ Cocher / retirer une ligne quand c'est fait, et l'inscrire dans le [CHANGELOG](.
 ## 🟢 Basse
 
 - [ ] Appliquer les 17 mises à jour en attente ; `docker compose pull` de temps en temps dans les CT 101, 103, 104, 105.
-- [ ] Vérifier que la box distribue `192.168.1.102` (AdGuard) en DNS DHCP, avec un DNS de secours.
+- [x] Vérifié le 22/11 : le DHCP est fait par AdGuard (CT 102), qui se donne comme DNS. Voir [reseau.md](reseau.md).
 - [ ] Tester une restauration (ex. CT 102 → ID 902) puis la supprimer.
 - [ ] `pct fstrim 100` pour rendre au pool les blocs libérés du CT 100.
 - [ ] Nettoyer `nic1` fantôme dans `/etc/network/interfaces`.

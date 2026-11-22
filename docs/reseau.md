@@ -37,8 +37,16 @@ Tous sur `vmbr0` avec une IP fixe, passerelle `192.168.1.1`.
 
 - AdGuard Home (CT 102) interroge Quad9 et Cloudflare en DoH (`upstream_mode: load_balance`).
 - Réécriture DNS : `accueil.home` → `192.168.1.104`.
-- Les CT eux-mêmes n'utilisent pas AdGuard. **Non vérifié** : si la box distribue `192.168.1.102`
-  comme DNS en DHCP. Sinon seuls les appareils réglés à la main sont filtrés.
+- Les CT eux-mêmes n'utilisent pas AdGuard.
+
+## DHCP (vérifié le 22/11/2026)
+
+- Le DHCP du réseau est assuré par **AdGuard (CT 102)** : plage 192.168.1.10-40, bail 24 h, passerelle 192.168.1.1,
+  DNS donné = AdGuard lui-même (`dhcp:` dans `/opt/AdGuardHome/AdGuardHome.yaml`, baux dans `data/leases.json`).
+- Le DHCP de la Livebox doit rester **coupé** en temps normal, sinon deux serveurs se répondent (adresses en double).
+- **Si le serveur `pve` est en panne** : plus de DHCP ni de DNS. Réactiver le DHCP dans l'interface de la Livebox
+  (http://192.168.1.1) pour retrouver Internet, puis le recouper quand le serveur est revenu.
+- Le 21/11 (panne de courant) le DHCP de la Livebox a été activé (10-49) ; au 22/11 les deux tournent en même temps.
 
 ## Tailscale
 

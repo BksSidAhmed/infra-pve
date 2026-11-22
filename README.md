@@ -24,7 +24,7 @@ Paperless et une page d'accueil. Dernier relevé : **7 octobre 2026**.
 Schémas détaillés (réseau, chaîne multimédia, stockage, sauvegardes) : [docs/schemas.md](docs/schemas.md).
 
 ```
-Internet ─── Box 192.168.1.1 (passerelle + DHCP)
+Internet ─── Box 192.168.1.1 (passerelle ; DHCP par AdGuard)
                  │
           LAN 192.168.1.0/24
                  │
@@ -68,7 +68,7 @@ Internet ─── Box 192.168.1.1 (passerelle + DHCP)
 
 | IP | Machine |
 |---|---|
-| 192.168.1.1 | Box (passerelle, DHCP, DNS) |
+| 192.168.1.1 | Box (passerelle ; DHCP normalement coupé, voir docs/reseau.md) |
 | 192.168.1.10 | Téléphone S25 Ultra (Tailscale 100.83.204.51) |
 | 192.168.1.13 | PC Windows |
 | 192.168.1.50 | pve (hôte Proxmox) |
