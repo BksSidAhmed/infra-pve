@@ -3,6 +3,12 @@
 Format : date — quoi — pourquoi — comment revenir en arrière. Le plus récent en haut.
 
 ## 2026-11-22
+- 22:51-22:56 — Disque1 changé de port USB (demande de Boukais) : arrêt des CT 101, 100, 103, stockages `Disque1` et
+  `backups` désactivés, `zpool export Disque1`, rebranché par Boukais (maintenant sur `usb 1-4` au lieu de `usb 4-2`),
+  `zpool import -N -d /dev/disk/by-id -o cachefile=none Disque1`, stockages réactivés, CT redémarrés. Plex répond.
+  Plus de reset USB ni d'erreur I/O après le rebranchement (contrôlé pendant 1 min).
+  **Mais le disque est en fin de vie** : test SMART long « Completed: read failure » à 10 % (LBA 285910232),
+  `Current_Pending_Sector` passé de 5 à 69. Les 6 épisodes de Dexter S1 restent corrompus. Remplacement à prévoir.
 - 22:45 — Plex ne lance plus aucune lecture. Diagnostic (lecture seule) : **ce n'est pas le GPU** (`/dev/dri/card0` et
   `renderD128` présents dans le CT 100, pilote amdgpu sans erreur, utilisateur plex dans `video`/`render`).
   Cause : **Disque1 se dégrade** : 152 erreurs I/O depuis le démarrage, ZFS READ=59, réinitialisation USB toutes les
