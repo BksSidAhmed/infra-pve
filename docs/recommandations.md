@@ -7,6 +7,7 @@ Cocher / retirer une ligne quand c'est fait, et l'inscrire dans le [CHANGELOG](.
 
 - [x] (fait le 22/11) **CT 103 (Paperless) ne redémarre pas tout seul** (22/11) : `Disque2` est importé trop tard au démarrage.
   Correctif : `systemctl enable zfs-import@Disque2.service` (comme Disque1). Retour arrière : `systemctl disable` du même service.
+- [ ] **URGENT (22/11 soir) : Disque1 se dégrade**, 6 fichiers Dexter corrompus, resets USB en continu. Copier les sauvegardes sur Disque2 et remplacer le disque.
 - [ ] **Disque1 après la panne du 21/11** : 5 erreurs de lecture, 5 secteurs « en attente » (SMART 197), resets USB.
   Vérifier le câble et l'alimentation du boîtier USB, lancer un test SMART long (`smartctl -t long /dev/sda`, ~10 h)
   puis un scrub. Si les secteurs en attente augmentent : remplacer le disque. Médias et sauvegardes sont dessus.

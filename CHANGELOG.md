@@ -3,6 +3,13 @@
 Format : date — quoi — pourquoi — comment revenir en arrière. Le plus récent en haut.
 
 ## 2026-11-22
+- 22:45 — Plex ne lance plus aucune lecture. Diagnostic (lecture seule) : **ce n'est pas le GPU** (`/dev/dri/card0` et
+  `renderD128` présents dans le CT 100, pilote amdgpu sans erreur, utilisateur plex dans `video`/`render`).
+  Cause : **Disque1 se dégrade** : 152 erreurs I/O depuis le démarrage, ZFS READ=59, réinitialisation USB toutes les
+  ~30 s (`usb 4-2: reset`), `smartctl` ne répond plus, charge ~19 (processus bloqués en attente du disque).
+  **6 fichiers définitivement corrompus** : Dexter saison 1 (E01, E02, E03, E04, E07, E11, 2160p).
+  Redémarrer Plex ne servirait à rien. Propositions à Boukais : copier `/Disque1/backups` (96 Go) sur Disque2,
+  arrêter le partage de Dexter S1, essayer un autre port/câble USB, prévoir le remplacement du disque.
 - Hôte : `systemctl enable zfs-import@Disque2.service` (accord de Boukais) pour que Disque2 soit importé au démarrage
   comme Disque1, puis `pct start 103` : Paperless (web :8000) et Samba répondent. Retour arrière :
   `systemctl disable zfs-import@Disque2.service`.
