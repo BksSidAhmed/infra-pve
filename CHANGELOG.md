@@ -3,6 +3,18 @@
 Format : date — quoi — pourquoi — comment revenir en arrière. Le plus récent en haut.
 
 ## 2026-11-22
+- 23:00-23:30 — **Migration Disque1 → Disque2 décidée par Boukais** (« on passe tout au disque 2 »).
+  - Le port USB 2 (`usb 1-4`) donnait ~0,1 à 10 Mo/s avec resets en continu. qBittorrent arrêté (`docker stop qbittorrent`
+    dans le CT 101) pour soulager le disque. Disque1 rebranché par Boukais sur le port USB 3 d'origine (`usb 4-2`)
+    avant la fin du `zpool export` → pool SUSPENDED, commandes zpool bloquées. Redémarrage de l'hôte accepté par Boukais :
+    resté bloqué à l'arrêt, **extinction forcée au bouton** à 23:25. Au redémarrage : Disque1 ONLINE, ~55 Mo/s, aucune erreur.
+  - Datasets créés sur Disque2 : `Disque2/backups`, `Disque2/paperless-export`, `Disque2/data` (recordsize 1M,
+    monté sur `/Disque2/data`). Copie par `rsync -aHAX` lancée en service `migration-disque2c` (script
+    `/root/migration-disque2.sh`, journal `/root/migration-disque2.log`), ordre : dernière sauvegarde de chaque CT,
+    Simpsons (401 Go), autres sauvegardes, export Paperless, puis tout `/mnt/data`.
+  - Pas encore basculé : Plex/arr lisent toujours `/mnt/data` (Disque1), le stockage `backups` pointe toujours
+    sur `/Disque1/backups`, le CT 103 exporte toujours sur Disque1. Bascule prévue à la fin de la copie.
+  - qBittorrent reste arrêté pendant la copie (le relancer : `pct exec 101 -- docker start qbittorrent`).
 - 22:51-22:56 — Disque1 changé de port USB (demande de Boukais) : arrêt des CT 101, 100, 103, stockages `Disque1` et
   `backups` désactivés, `zpool export Disque1`, rebranché par Boukais (maintenant sur `usb 1-4` au lieu de `usb 4-2`),
   `zpool import -N -d /dev/disk/by-id -o cachefile=none Disque1`, stockages réactivés, CT redémarrés. Plex répond.
