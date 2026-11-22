@@ -3,6 +3,11 @@
 Format : date — quoi — pourquoi — comment revenir en arrière. Le plus récent en haut.
 
 ## 2026-11-22
+- Hôte : `systemctl enable zfs-import@Disque2.service` (accord de Boukais) pour que Disque2 soit importé au démarrage
+  comme Disque1, puis `pct start 103` : Paperless (web :8000) et Samba répondent. Retour arrière :
+  `systemctl disable zfs-import@Disque2.service`.
+- Disque1 (sda) : test SMART long lancé à 14:49 (`smartctl -t long /dev/sda`, fin prévue 17:34), lecture seule,
+  résultat avec `smartctl -l selftest /dev/sda`.
 - **Incident du 21/11 (panne de courant)** : vers 19:10 le 21/11, une prise a explosé et `pve` s'est éteint
   (dernière ligne du journal : 21/11 19:10). Il ne se rallumait plus, même avec un autre bloc 19,5 V. Pendant la panne,
   le DHCP de la Livebox a été activé (plage 192.168.1.10-49) pour garder Internet sans AdGuard.

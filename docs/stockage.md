@@ -87,5 +87,5 @@ Groupe `media` (GID 10000) avec bit setgid, `UMASK 002`. Les conteneurs Docker t
 
 - `Disque1` : 5 erreurs READ dans `zpool status` (aucune donnée perdue), resets USB, SMART 197 `Current_Pending_Sector` = 5.
 - `Disque2` : sain, mais importé seulement ~1 min après le démarrage (pas de service `zfs-import@Disque2`), ce qui
-  empêche le CT 103 de démarrer automatiquement. Voir [recommandations.md](recommandations.md).
+  empêche le CT 103 de démarrer automatiquement. Corrigé le 22/11 : `zfs-import@Disque2.service` activé.
 - Scrub automatique Debian : 2e dimanche du mois à 00:24 (`/etc/cron.d/zfsutils-linux`), trim le 1er dimanche.
