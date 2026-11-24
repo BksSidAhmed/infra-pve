@@ -2,6 +2,15 @@
 
 Format : date — quoi — pourquoi — comment revenir en arrière. Le plus récent en haut.
 
+## 2026-11-24
+- Migration Disque1 → Disque2 (suite) : toutes les sauvegardes vzdump copiées (`/Disque2/backups/dump`), Simpsons
+  copiés (401 Go, `/Disque2/data/media/series/The Simpsons`), export Paperless copié.
+- CT 103 : `mp0` → `/Disque2/paperless-export` (23/11 17:45). Sauvegarde : `/root/103.conf.bak-migration-disque2`.
+- Stockage `backups` : `path` → `/Disque2/backups` en éditant `/etc/pve/storage.cfg` (`pvesm set --path` refuse,
+  option fixe). Sauvegarde : `/root/storage.cfg.bak-path-backups`. Retour arrière : remettre `/Disque1/backups`.
+- Disque1 empire : DEGRADED « too many errors », READ=146, 82 erreurs de données, SMART 197 = 279, copie à ~0 Mo/s.
+  ~320 Go de `/mnt/data/downloads` copiés sur ~1,2 To. Bascule de Plex/arr sur Disque2 proposée à Boukais.
+
 ## 2026-11-22
 - 23:00-23:30 — **Migration Disque1 → Disque2 décidée par Boukais** (« on passe tout au disque 2 »).
   - Le port USB 2 (`usb 1-4`) donnait ~0,1 à 10 Mo/s avec resets en continu. qBittorrent arrêté (`docker stop qbittorrent`
