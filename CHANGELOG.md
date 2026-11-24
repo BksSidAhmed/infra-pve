@@ -3,6 +3,16 @@
 Format : date — quoi — pourquoi — comment revenir en arrière. Le plus récent en haut.
 
 ## 2026-11-24
+- 21:03-21:07 — **Bascule de Plex et des *arr sur Disque2** (accord de Boukais) : copie arrêtée, CT 101 et 100 arrêtés,
+  liens durs `media/` → `downloads/` recréés sur Disque2 (250 recréés, 235 dont le fichier n'avait pas été copié,
+  liste `/root/media-manquants.txt`), `zfs set mountpoint=/Disque1/data-old Disque1/data`,
+  `zfs set mountpoint=/mnt/data Disque2/data`, CT redémarrés, qBittorrent relancé, scan Plex lancé.
+  Visible dans Plex : Simpsons (38 saisons), 14 films sur 16, Crystal Lake, Dexter, Dexter Resurrection, Detective Conan,
+  One Piece. Le reste est à retélécharger (Sonarr/Radarr).
+  Stockage Proxmox `Disque1` désactivé (`pvesm set Disque1 --disable 1`) pour que Proxmox ne l'interroge plus.
+  Récupération lente en tâche de fond : service `recup-disque1` (`/root/recup-disque1.sh`, `rsync --ignore-existing`
+  depuis `/Disque1/data-old/downloads`, basse priorité, puis recréation des liens `media/`).
+  Retour arrière : arrêter CT 100/101, inverser les deux `zfs set mountpoint`, redémarrer.
 - Migration Disque1 → Disque2 (suite) : toutes les sauvegardes vzdump copiées (`/Disque2/backups/dump`), Simpsons
   copiés (401 Go, `/Disque2/data/media/series/The Simpsons`), export Paperless copié.
 - CT 103 : `mp0` → `/Disque2/paperless-export` (23/11 17:45). Sauvegarde : `/root/103.conf.bak-migration-disque2`.

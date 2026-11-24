@@ -50,7 +50,7 @@ Il n'y a **pas** de SSH direct dans les conteneurs : on passe toujours par l'hô
 | Réseau, DNS, Tailscale | [docs/reseau.md](docs/reseau.md) | `/etc/network/interfaces`, `ip -br a`, `tailscale status` |
 | Accès depuis Internet (Cloudflare) | [docs/acces-exterieur.md](docs/acces-exterieur.md) | `/opt/arr/docker-compose.yml` (CT 101) |
 | Disques, ZFS, LVM | [docs/stockage.md](docs/stockage.md) | `zpool status`, `zfs list`, `pvesm status`, `lvs` |
-| Sauvegardes | [docs/sauvegardes.md](docs/sauvegardes.md) | `/etc/pve/jobs.cfg`, `/Disque1/backups/dump` |
+| Sauvegardes | [docs/sauvegardes.md](docs/sauvegardes.md) | `/etc/pve/jobs.cfg`, `/Disque2/backups/dump` |
 | Sécurité | [docs/securite.md](docs/securite.md) | `/etc/ssh/sshd_config`, `pveum user list` |
 | Problèmes connus / à faire | [docs/recommandations.md](docs/recommandations.md) | — |
 | Un conteneur précis | [conteneurs/](conteneurs/) (une fiche par CT) | `pct config <id>` |
@@ -82,6 +82,9 @@ Si une info du dépôt semble fausse, vérifie sur le serveur (lecture seule) et
 
 - `/etc/hosts` de l'hôte annonce encore `192.168.1.19` alors que l'IP réelle est `192.168.1.50` (voir recommandations).
 - Les disques de 5 To sont branchés en **USB** : ne pas lancer de grosses opérations ZFS sans prévenir.
+- **Depuis le 24/11/2026 tout est sur Disque2** (`/mnt/data` = `Disque2/data`). Disque1 est en panne : stockage Proxmox
+  désactivé, ancien contenu en lecture sur `/Disque1/data-old`. Ne rien écrire dessus. Il n'y a plus aucune copie
+  hors de Disque2 : un nouveau disque est à acheter.
 - Les volumes montés dans les CT (`/mnt/data`, `/Disque2/paperless`…) **ne sont pas** dans les sauvegardes vzdump.
 - Prowlarr et qBittorrent partagent le réseau de `gluetun` : leurs ports (9696, 8080) sont publiés par gluetun. Redémarrer gluetun coupe ces deux services.
 - Plex ne doit pas passer par le tunnel Cloudflare (interdit par leurs conditions).

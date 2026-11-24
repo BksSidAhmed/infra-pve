@@ -13,9 +13,9 @@ Paperless et une page d'accueil. Dernier relevé : **7 octobre 2026**.
 | Serveur | Mini-PC TianBei WTR PRO, Ryzen 7 5825U (8c/16t), 8 Go RAM |
 | Système | Proxmox VE 9.2.21 (Debian 13 trixie), nœud seul |
 | IP | `192.168.1.50` (LAN) · `100.73.1.43` (Tailscale) |
-| Disques | SSD NVMe 500 Go (système + CT) · 2 × WD 5 To en USB (ZFS `Disque1`, `Disque2`) |
+| Disques | SSD NVMe 500 Go (système + CT) · 2 × WD 5 To en USB (ZFS `Disque2` en service ; `Disque1` en panne depuis le 21/11) |
 | Conteneurs | 7 LXC non privilégiés (100 à 106), aucune VM |
-| Sauvegarde | vzdump chaque nuit à 01:00 vers `Disque1` (7 jours + 4 semaines) |
+| Sauvegarde | vzdump chaque nuit à 01:00 vers `Disque2` (7 jours + 4 semaines) |
 | Accès extérieur | Tailscale (admin) · Cloudflare Tunnel pour `cine.bks-home.com` (Seerr) |
 | Surveillance | Uptime Kuma (CT 105), alertes sur le téléphone via ntfy |
 
@@ -42,8 +42,8 @@ Internet ─── Box 192.168.1.1 (passerelle ; DHCP par AdGuard)
    │  CT 106 claude    .106  Claude Code (Plex/arr par API)      │
    │                                                             │
    │  SSD NVMe  → local-lvm (disques des CT)                     │
-   │  USB WD 5To → ZFS Disque1 : /mnt/data (médias), backups     │
-   │  USB WD 5To → ZFS Disque2 : paperless                       │
+   │  USB WD 5To → ZFS Disque2 : /mnt/data, backups, paperless   │
+   │  USB WD 5To → ZFS Disque1 : EN PANNE (à remplacer)          │
    └─────────────────────────────────────────────────────────────┘
 ```
 

@@ -73,7 +73,7 @@ flowchart LR
     media --> plex["CT 100 Plex :32400<br/>transcodage iGPU"]
 ```
 
-`/data` = dataset ZFS `Disque1/data`, monté dans les CT 100 et 101.
+`/data` = dataset ZFS `Disque2/data` (Disque1 jusqu'au 24/11/2026), monté dans les CT 100 et 101.
 
 ## 3. Stockage
 
@@ -91,12 +91,13 @@ flowchart TB
         thin --> d105["CT 105 · 8 Go"]
         thin --> d106["CT 106 · 8 Go"]
     end
-    subgraph usb1["Disque USB 5 To n°1 · ZFS « Disque1 »"]
-        data["Disque1/data ~584 Go<br/>/mnt/data"]
-        bk["Disque1/backups ~21 Go<br/>sauvegardes vzdump"]
-        pexp["Disque1/paperless-export<br/>~0,4 Go"]
+    subgraph usb1["Disque USB 5 To n°1 · ZFS « Disque1 » · EN PANNE"]
+        old["Disque1/data → /Disque1/data-old<br/>récupération seulement"]
     end
     subgraph usb2["Disque USB 5 To n°2 · ZFS « Disque2 »"]
+        data["Disque2/data ~720 Go<br/>/mnt/data"]
+        bk["Disque2/backups ~96 Go<br/>sauvegardes vzdump"]
+        pexp["Disque2/paperless-export<br/>~0,3 Go"]
         pdocs["Disque2/paperless ~10 Go<br/>/Disque2/paperless"]
     end
     data -->|"/data"| c100["CT 100 plex"]
@@ -114,10 +115,10 @@ flowchart LR
     subgraph src["Sources"]
         cts["Disques des 5 CT<br/>(SSD)"]
         docs["Documents Paperless<br/>(Disque2)"]
-        med["Médias ~584 Go<br/>(Disque1)"]
+        med["Médias ~720 Go<br/>(Disque2)"]
     end
-    cts -->|"vzdump chaque nuit 01:00<br/>snapshot zstd · 7 j + 4 sem."| bk[("Disque1/backups")]
-    docs -->|"document_exporter<br/>chaque nuit 00:30"| pexp[("Disque1/paperless-export")]
+    cts -->|"vzdump chaque nuit 01:00<br/>snapshot zstd · 7 j + 4 sem."| bk[("Disque2/backups")]
+    docs -->|"document_exporter<br/>chaque nuit 00:30"| pexp[("Disque2/paperless-export")]
     med -.->|aucune copie| rien["❌"]
     bk -.->|aucune copie| off["❌ hors du serveur"]
     pexp -.->|aucune copie| off

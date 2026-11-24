@@ -9,7 +9,7 @@ Définie dans `/etc/pve/jobs.cfg` (copie : [config/hote/jobs.cfg](../config/hote
 | Quand | tous les jours à **01:00** |
 | Quoi | tous les CT (`all 1`) |
 | Mode | snapshot, compression zstd |
-| Où | stockage `backups` = `/Disque1/backups/dump` (disque USB n°1) |
+| Où | stockage `backups` = `/Disque2/backups/dump` (disque USB n°2, depuis le 24/11/2026 ; avant : Disque1) |
 | Rétention | 7 quotidiennes + 4 hebdomadaires |
 | Notifications | système de notification Proxmox → `siidu_96@hotmail.fr` via Postfix local (probablement jamais reçues) |
 
@@ -20,8 +20,8 @@ Définie dans `/etc/pve/jobs.cfg` (copie : [config/hote/jobs.cfg](../config/hote
 
 - Cron dans le CT 103 : `/etc/cron.d/paperless-export`, chaque nuit à **00:30**
   (copie : [config/ct103-paperless/cron-paperless-export](../config/ct103-paperless/cron-paperless-export)).
-- `document_exporter` vers `/mnt/export` = `Disque1/paperless-export`. Journal : `/var/log/paperless-export.log` dans le CT.
-- Originaux sur Disque2, copie sur Disque1.
+- `document_exporter` vers `/mnt/export` = `Disque2/paperless-export` (depuis le 23/11/2026). Journal : `/var/log/paperless-export.log` dans le CT.
+- **Attention** : originaux ET export sont maintenant tous les deux sur Disque2 (Disque1 en panne).
 
 ## Résumé de ce qui est protégé
 
@@ -34,6 +34,6 @@ Définie dans `/etc/pve/jobs.cfg` (copie : [config/hote/jobs.cfg](../config/hote
 ## Restaurer un CT
 
 Interface web → stockage `backups` → choisir l'archive → *Restore* (sous un **nouvel ID** pour tester, ex. 902).
-En ligne de commande : `pct restore 902 /Disque1/backups/dump/<archive>.tar.zst --storage local-lvm`.
+En ligne de commande : `pct restore 902 /Disque2/backups/dump/<archive>.tar.zst --storage local-lvm`.
 **Demander l'accord de Boukais avant toute restauration sur un ID existant.**
 Aucune restauration n'a encore été testée.

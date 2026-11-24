@@ -8,13 +8,16 @@ SSD NVMe 465,8 Go (Crucial P310) — groupe LVM « pve »
 ├─ swap   7,2 Go
 └─ data   338 Go  → pool thin « local-lvm » : disques racine des CT
 
-USB WD 5 To n°1 (sda) — pool ZFS « Disque1 » (un seul disque, pas de redondance)
-├─ Disque1/data              ~584 Go → /mnt/data          (médias, partagé CT 100 et 101)
-├─ Disque1/backups           ~21 Go  → /Disque1/backups   (stockage Proxmox « backups »)
-└─ Disque1/paperless-export  ~0,4 Go → /Disque1/paperless-export (export Paperless, CT 103 /mnt/export)
-
-USB WD 5 To n°2 (sdb) — pool ZFS « Disque2 » (un seul disque)
+USB WD 5 To n°2 (sdb) — pool ZFS « Disque2 » (un seul disque) — DISQUE PRINCIPAL depuis le 24/11/2026
+├─ Disque2/data              ~720 Go → /mnt/data          (médias + téléchargements, CT 100 et 101, recordsize 1M)
+├─ Disque2/backups           ~96 Go  → /Disque2/backups   (stockage Proxmox « backups »)
+├─ Disque2/paperless-export  ~0,3 Go → /Disque2/paperless-export (export Paperless, CT 103 /mnt/export)
 └─ Disque2/paperless         ~10 Go  → /Disque2/paperless (CT 103 /mnt/docs)
+
+USB WD 5 To n°1 (sda) — pool ZFS « Disque1 » — EN PANNE (abîmé par la coupure du 21/11), à remplacer
+├─ Disque1/data              → /Disque1/data-old (ancien /mnt/data, lecture pour récupération seulement)
+├─ Disque1/backups           → /Disque1/backups (anciennes copies, plus utilisé)
+└─ Disque1/paperless-export  (plus utilisé)
 ```
 
 Compression ZFS activée, ARC limité à environ 0,72 Gio.
@@ -25,8 +28,8 @@ Compression ZFS activée, ARC limité à environ 0,72 Gio.
 |---|---|---|---|
 | local | dir | SSD `/var/lib/vz` | ISO, modèles, import, sauvegardes |
 | local-lvm | lvmthin | SSD, pool `data` | disques des CT |
-| Disque1 | zfspool | USB n°1 | disques VM/CT (inutilisé) |
-| backups | dir | `/Disque1/backups` | sauvegardes vzdump |
+| Disque1 | zfspool | USB n°1 | **désactivé** (disque en panne, 24/11) |
+| backups | dir | `/Disque2/backups` | sauvegardes vzdump (sur Disque1 jusqu'au 24/11) |
 | Disque2 | zfspool | USB n°2 | disques VM/CT (inutilisé) |
 
 ## Occupation au 07/10/2026 (18 h)
